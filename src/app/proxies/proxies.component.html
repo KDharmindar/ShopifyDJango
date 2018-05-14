@@ -1,0 +1,77 @@
+<div class="row page-titles">
+  <div class="col-md-5 col-8 align-self-center">
+    <h3 class="text-themecolor">Proxies</h3>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+      <li class="breadcrumb-item active">Proxies</li>
+    </ol>
+  </div>
+  <div class="col-md-7 col-4 align-self-center"></div>
+</div>
+
+<!-- Content -->
+
+<mat-card>
+  <mat-grid-list cols="10" rowHeight="100px">
+    <mat-grid-tile colspan="8">
+      <div class="form-container">
+        <mat-form-field>
+          <input matInput placeholder="" >
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2">
+      Speed results (ms) for proxy test
+    </mat-grid-tile>
+  </mat-grid-list>
+
+</mat-card>
+
+<mat-grid-list cols="5" rowHeight="1:1">
+  <mat-grid-tile>
+    <button mat-raised-button>Save to bot</button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button>Delete All</button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button>Test Proxies</button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button>Export to file</button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button>Import</button>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list cols="6" rowHeight="1:1">
+  <mat-grid-tile>
+    <button mat-raised-button class="empty-box">
+      <br>
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button class="empty-box">
+      <br>
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button class="empty-box">
+      <br>
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button class="empty-box">
+      <br>
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button color="warn">Proxies</button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button class="empty-box">
+      <br>
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>

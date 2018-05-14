@@ -1,0 +1,13 @@
+.empty-box {
+    border: 1px solid grey!important;
+    background: transparent;
+}
+
+.form-container {
+    display: flex!important;
+    flex-direction: column!important;
+}
+
+.form-container > * {
+    width: 100%!important;
+}

@@ -1,19 +1,19 @@
-import { AppRoutingModule } from './app-routing/app-routing.module';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {AppRoutingModule} from './app-routing/app-routing.module';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './shared/components/header/header.component';
-import { FooterComponent } from './shared/components/footer/footer.component';
-import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
-import { Error404Component } from './shared/components/error404/error404.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import {AppComponent} from './app.component';
+import {HeaderComponent} from './shared/components/header/header.component';
+import {FooterComponent} from './shared/components/footer/footer.component';
+import {SidebarComponent} from './shared/components/sidebar/sidebar.component';
+import {Error404Component} from './shared/components/error404/error404.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
 
 import {CdkTableModule} from '@angular/cdk/table';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { 
+import {
   MatInputModule,
   MatSortModule,
   MatFormFieldModule,
@@ -23,11 +23,13 @@ import {
   MatButtonModule,
   MatButtonToggleModule,
   MatOptionModule,
-  MatSelectModule
+  MatSelectModule,
+  MatGridListModule,
+  MatCardModule
 } from '@angular/material';
-import { TaskCreatorComponent } from './task-creator/task-creator.component';
-
-
+import {TaskCreatorComponent} from './task-creator/task-creator.component';
+import {ProxiesComponent} from './proxies/proxies.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { TaskCreatorComponent } from './task-creator/task-creator.component';
     SidebarComponent,
     Error404Component,
     DashboardComponent,
-    TaskCreatorComponent
+    TaskCreatorComponent,
+    ProxiesComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -54,10 +58,12 @@ import { TaskCreatorComponent } from './task-creator/task-creator.component';
     MatButtonModule,
     MatOptionModule,
     MatSelectModule,
+    MatGridListModule,
+    MatCardModule,
     FormsModule,
     ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
