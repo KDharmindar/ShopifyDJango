@@ -5,9 +5,10 @@ import {Routes, RouterModule} from '@angular/router';
 import {Error404Component} from './../shared/components/error404/error404.component';
 import {TaskCreatorComponent} from './../task-creator/task-creator.component';
 import {DashboardComponent} from './../dashboard/dashboard.component';
+import {SettingsComponent} from './../settings/settings.component';
 import {ProxiesComponent} from './../proxies/proxies.component';
 
-const appRoutes: Routes = [
+const appRoutes : Routes = [
   {
     path: '',
     redirectTo: '/dashboard',
@@ -35,6 +36,13 @@ const appRoutes: Routes = [
     data: {
       title: 'Proxies Component',
       breadcrumb: 'Proxies'
+    }
+  }, {
+    path: 'settings',
+    component: SettingsComponent,
+    data: {
+      title: 'Settings Component',
+      breadcrumb: 'Settings'
     }
   }, {
     path: '404',

@@ -29,7 +29,7 @@ import {
 } from '@angular/material';
 import {TaskCreatorComponent} from './task-creator/task-creator.component';
 import {ProxiesComponent} from './proxies/proxies.component';
-import { SettingsComponent } from './settings/settings.component';
+import {SettingsComponent} from './settings/settings.component';
 
 @NgModule({
   declarations: [
