@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-md-7">
+        <form id="task-creator" [formGroup]="task">
+            <mat-form-field>
+                <input matInput type="text" placeholder="Site" formControlName="site" minlength="3" maxlength="50">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select placeholder="Type" formControlName="type">
+                    <mat-option value="link">Link</mat-option>
+                    <mat-option value="variant">Variant</mat-option>
+                    <mat-option value="keyword">Keyword</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput type="number" placeholder="Size" formControlName="size" min="0" max="50">
+            </mat-form-field>
+        </form>
+    </div>
+</div>

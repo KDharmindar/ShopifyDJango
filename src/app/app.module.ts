@@ -10,6 +10,24 @@ import { SidebarComponent } from './shared/components/sidebar/sidebar.component'
 import { Error404Component } from './shared/components/error404/error404.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
+import {CdkTableModule} from '@angular/cdk/table';
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { 
+  MatInputModule,
+  MatSortModule,
+  MatFormFieldModule,
+  MatPaginatorModule,
+  MatTableModule,
+  MatIconModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatOptionModule,
+  MatSelectModule
+} from '@angular/material';
+import { TaskCreatorComponent } from './task-creator/task-creator.component';
+
+
 
 @NgModule({
   declarations: [
@@ -18,12 +36,26 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FooterComponent,
     SidebarComponent,
     Error404Component,
-    DashboardComponent
+    DashboardComponent,
+    TaskCreatorComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CdkTableModule,
+    MatTableModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatButtonModule,
+    MatOptionModule,
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

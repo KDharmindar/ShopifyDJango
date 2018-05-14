@@ -1,3 +1,4 @@
+import { TaskCreatorComponent } from './../task-creator/task-creator.component';
 import { Error404Component } from './../shared/components/error404/error404.component';
 import { DashboardComponent } from './../dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
@@ -15,6 +16,11 @@ const appRoutes: Routes = [
     path:'dashboard', 
     component: DashboardComponent, 
     data:{title:'Dashboard',breadcrumb:'Dashboard'}
+  },
+  {
+    path:'task-creator', 
+    component: TaskCreatorComponent, 
+    data:{title:'Task Creator',breadcrumb:'Task Creator'}
   },
   {
     path:'404',
