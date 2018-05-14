@@ -25,7 +25,8 @@ import {
   MatOptionModule,
   MatSelectModule,
   MatGridListModule,
-  MatCardModule
+  MatCardModule,
+  MatListModule
 } from '@angular/material';
 import {TaskCreatorComponent} from './task-creator/task-creator.component';
 import {ProxiesComponent} from './proxies/proxies.component';
@@ -62,6 +63,7 @@ import { GmailAccountsComponent } from './gmail-accounts/gmail-accounts.componen
     MatSelectModule,
     MatGridListModule,
     MatCardModule,
+    MatListModule,
     FormsModule,
     ReactiveFormsModule
   ],

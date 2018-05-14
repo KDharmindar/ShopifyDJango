@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GmailAccountsComponent implements OnInit {
 
+  rows: Array<Object> = [{
+    email: '',
+    password: ''
+  }];
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onClick() {
+    this.rows.push({email: '', password: ''});
   }
 
 }
