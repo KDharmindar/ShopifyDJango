@@ -12,33 +12,13 @@
 <!-- Content -->
 
 <mat-list>
-  <div *ngFor="let row of rows; let i=index;">
-    <mat-list-item>
-      <form class="gmail-form">
-        <table class="gmail-form-full-width">
-          <tr >
-            <td >
-              <mat-form-field>
-                <input type="email" matInput placeholder="Enter email" >
-              </mat-form-field>
-            </td>
-            <td>
-            <mat-form-field>
-              <input type="password" matInput placeholder="Enter Password" >
-            </mat-form-field>
-            </td>
-          </tr>
-        </table>
-      </form>
-      <span 
-        role="button" 
-        (click)="onClick()"
-        *ngIf="i === rows.length-1" 
-      ><i class="mdi mdi-plus"></i></span>
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    <br>
-  </div>
+  <mat-list-item>
+    <form class="gmail-form">
+      <mat-form-field>
+        <textarea matInput placeholder="email:password" rows="3" width="50"></textarea>
+      </mat-form-field>
+    </form>
+  </mat-list-item>
 </mat-list>
 
 <mat-grid-list cols="4" rowHeight="1:1">
