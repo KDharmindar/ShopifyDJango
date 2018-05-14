@@ -11,17 +11,21 @@
   
 <!-- Content -->
 
-<mat-list>
-  <mat-list-item>
+<mat-grid-list cols="3" rowHeight="300px">
+  <mat-grid-tile>  
+  </mat-grid-tile>
+  <mat-grid-tile class="grid-border"> 
     <form class="gmail-form">
-      <mat-form-field>
-        <textarea matInput placeholder="email:password" rows="3" width="50"></textarea>
+      <mat-form-field class="gmail-form-full-width">
+        <textarea matInput placeholder="email:password" rows="5"></textarea>
       </mat-form-field>
     </form>
-  </mat-list-item>
-</mat-list>
+  </mat-grid-tile>
+  <mat-grid-tile>  
+  </mat-grid-tile>  
+</mat-grid-list>
 
-<mat-grid-list cols="4" rowHeight="1:1">
+<mat-grid-list cols="4" rowHeight="100px">
   <mat-grid-tile>
     <button mat-raised-button color="primary">Save</button>
   </mat-grid-tile>
@@ -36,7 +40,7 @@
   </mat-grid-tile>
 </mat-grid-list>
 
-<mat-grid-list cols="6" rowHeight="6:1">
+<mat-grid-list cols="6" rowHeight="100px">
   <mat-grid-tile>
     <button mat-raised-button class="empty-box">
       <br>
