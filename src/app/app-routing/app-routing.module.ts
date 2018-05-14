@@ -7,37 +7,37 @@ import { Routes, RouterModule } from '@angular/router';
 
 const appRoutes: Routes = [
   {
-    path: '', 
-    redirectTo:'/dashboard',
-    pathMatch:'full', 
-    data:{title:'OneChat'} 
+    path: '',
+    redirectTo: '/dashboard',
+    pathMatch: 'full',
+    data: {title: 'OneChat'}
   },
   {
-    path:'dashboard', 
+    path: 'dashboard',
     component: DashboardComponent, 
-    data:{title:'Dashboard',breadcrumb:'Dashboard'}
+    data: {title: 'Dashboard', breadcrumb: 'Dashboard'}
   },
   {
-    path:'task-creator', 
-    component: TaskCreatorComponent, 
-    data:{title:'Task Creator',breadcrumb:'Task Creator'}
+    path: 'task-creator',
+    component: TaskCreatorComponent,
+    data: {title: 'Task Creator', breadcrumb: 'Task Creator'}
   },
   {
-    path:'404',
+    path: '404',
     component: Error404Component,
-    data:{title:'Error 404',breadcrumb:'error 404'}
+    data: {title: 'Error 404', breadcrumb: 'error 404'}
   },
   {
-    path: '**', 
+    path: '**',
     redirectTo: '/404'
   }
-]
+];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(appRoutes)
   ],
-  exports:[RouterModule],
+  exports: [RouterModule],
   declarations: []
 })
 export class AppRoutingModule { }
