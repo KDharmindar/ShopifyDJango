@@ -1,3 +1,4 @@
+import { GmailAccountsComponent } from './../gmail-accounts/gmail-accounts.component';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Routes, RouterModule} from '@angular/router';
@@ -43,6 +44,13 @@ const appRoutes : Routes = [
     data: {
       title: 'Settings Component',
       breadcrumb: 'Settings'
+    }
+  }, {
+    path: 'gmail-accounts',
+    component: GmailAccountsComponent,
+    data: {
+      title: 'Gmail Accounts Component',
+      breadcrumb: 'Gmail Accounts'
     }
   }, {
     path: '404',

@@ -30,6 +30,7 @@ import {
 import {TaskCreatorComponent} from './task-creator/task-creator.component';
 import {ProxiesComponent} from './proxies/proxies.component';
 import {SettingsComponent} from './settings/settings.component';
+import { GmailAccountsComponent } from './gmail-accounts/gmail-accounts.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {SettingsComponent} from './settings/settings.component';
     DashboardComponent,
     TaskCreatorComponent,
     ProxiesComponent,
-    SettingsComponent
+    SettingsComponent,
+    GmailAccountsComponent
   ],
   imports: [
     BrowserModule,
