@@ -1,3 +1,4 @@
+import { CheckoutProfileComponent } from './../checkout-profile/checkout-profile.component';
 import { TaskCreatorComponent } from './../task-creator/task-creator.component';
 import { Error404Component } from './../shared/components/error404/error404.component';
 import { DashboardComponent } from './../dashboard/dashboard.component';
@@ -21,6 +22,11 @@ const appRoutes: Routes = [
     path:'task-creator', 
     component: TaskCreatorComponent, 
     data:{title:'Task Creator',breadcrumb:'Task Creator'}
+  },
+  {
+    path:'checkout-profile', 
+    component: CheckoutProfileComponent, 
+    data:{title:'Checkout Profile',breadcrumb:'Checkout Profile'}
   },
   {
     path:'404',

@@ -23,7 +23,12 @@
             "assets/css/colors/blue.css",
             "styles.css"
         ],
-        "scripts": [],
+        "scripts": [
+            "../node_modules/jquery/dist/jquery.min.js",
+            "assets/js/custom.min.js",
+            "assets/js/sticky-kit.min.js",
+            "assets/js/sidebarmenu.js"
+        ],
         "environmentSource": "environments/environment.ts",
         "environments": {
             "dev": "environments/environment.ts",

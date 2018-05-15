@@ -18,7 +18,6 @@ export class DashboardComponent implements OnInit{
   constructor(private dashboardService:DashboardService) { }
 
   ngOnInit() {
-    console.log(this.dataSource)
     this.dataSource = new MatTableDataSource(this.dashboardService.getData());
   }
 

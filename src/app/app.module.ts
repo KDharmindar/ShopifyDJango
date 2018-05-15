@@ -23,9 +23,13 @@ import {
   MatButtonModule,
   MatButtonToggleModule,
   MatOptionModule,
-  MatSelectModule
+  MatSelectModule,
+  MatDatepickerModule,
+  MatCheckboxModule,
+  MatNativeDateModule
 } from '@angular/material';
 import { TaskCreatorComponent } from './task-creator/task-creator.component';
+import { CheckoutProfileComponent } from './checkout-profile/checkout-profile.component';
 
 
 
@@ -37,7 +41,8 @@ import { TaskCreatorComponent } from './task-creator/task-creator.component';
     SidebarComponent,
     Error404Component,
     DashboardComponent,
-    TaskCreatorComponent
+    TaskCreatorComponent,
+    CheckoutProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +59,9 @@ import { TaskCreatorComponent } from './task-creator/task-creator.component';
     MatButtonModule,
     MatOptionModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
     FormsModule,
     ReactiveFormsModule
   ],

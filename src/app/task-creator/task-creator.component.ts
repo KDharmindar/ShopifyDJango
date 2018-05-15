@@ -14,11 +14,20 @@ export class TaskCreatorComponent implements OnInit {
     this.task = fb.group({
       site:'',
       type:'',
-      size:0
+      size:0,
+      billingProfile:'',
+      proxy:'',
+      checkoutType:'',
+      quantity:0
     });
   }
 
   ngOnInit() {
+  }
+
+  createTask(){
+    alert('Task Created!');
+    console.log(this.task)
   }
 
 }
