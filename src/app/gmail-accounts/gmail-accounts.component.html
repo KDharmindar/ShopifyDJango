@@ -1,0 +1,72 @@
+<div class="row page-titles">
+  <div class="col-md-5 col-8 align-self-center">
+    <h3 class="text-themecolor">Gmail Accounts</h3>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+      <li class="breadcrumb-item active">Gmail accounts</li>
+    </ol>
+  </div>
+  <div class="col-md-7 col-4 align-self-center"></div>
+</div>
+  
+<!-- Content -->
+
+<mat-grid-list cols="3" rowHeight="300px">
+  <mat-grid-tile>  
+  </mat-grid-tile>
+  <mat-grid-tile class="grid-border"> 
+    <form class="gmail-form">
+      <mat-form-field class="gmail-form-full-width">
+        <textarea matInput placeholder="email:password" rows="5"></textarea>
+      </mat-form-field>
+    </form>
+  </mat-grid-tile>
+  <mat-grid-tile>  
+  </mat-grid-tile>  
+</mat-grid-list>
+
+<mat-grid-list cols="4" rowHeight="100px">
+  <mat-grid-tile>
+    <button mat-raised-button color="primary">Save</button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button color="primary">Clear and restart browser session</button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button color="primary">Export to file</button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button color="primary">Import</button>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list cols="6" rowHeight="100px">
+  <mat-grid-tile>
+    <button mat-raised-button class="empty-box">
+      <br>
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button class="empty-box">
+      <br>
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button class="empty-box">
+      <br>
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button color="warn">Captcha</button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button class="empty-box">
+      <br>
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button class="empty-box">
+      <br>
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>
