@@ -6,5 +6,6 @@ from django.conf.urls import url
 urlpatterns = [
     
     url(r'^login/', csrf_exempt(Login.as_view())),
-    url(r'^createuser',UserManagement.as_view())
+    url(r'^createuser',UserManagement.as_view()),
+    url(r'^billings',Profilecheckout.as_view())
 ]

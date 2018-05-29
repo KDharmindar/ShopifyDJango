@@ -18,20 +18,22 @@ class Profile(models.Model):
 
 
 
-# class Address(models.Model):
+class Checkout(models.Model):
 
-# 	userprofile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-# 	ADDRESS_CHOICES = (
-# 	    (1, ("Delivery Address")),
-# 	    (2, ("Billing  Address")),
-	    
-# 	)
-# 	address_type = models.IntegerField(choices=ADDRESS_CHOICES, default=1)
-# 	firstname = models.CharField(max_length=50, blank=True)
-# 	lasttname = models.CharField(max_length=50, blank=True)  
-# 	address1 = models.TextField(max_length=500, blank=True)
-# 	address2 = models.TextField(max_length=500, blank=True)
-# 	city = models.CharField(max_length=50, blank=True)
-# 	state = models.CharField(max_length=50, blank=True)
-# 	zipcode = models.CharField(max_length=20, blank=True)
-# 	country = models.CharField(max_length=50, blank=True)                  
+	first_name = models.CharField(max_length=50, blank=True)
+	last_name = models.CharField(max_length=50, blank=True)  
+	address1 = models.TextField(max_length=500, blank=True)
+	address2 = models.TextField(max_length=500, blank=True)
+	city = models.CharField(max_length=50, blank=True)
+	state = models.CharField(max_length=50, blank=True)
+	zipcode = models.CharField(max_length=20, blank=True)
+	email = models.CharField(max_length=50, blank=True)
+	phone = models.CharField(max_length=50, blank=True)
+	card_num = models.CharField(max_length=16,blank=True)
+	card_cvv = models.CharField(max_length=16,blank=True)
+	card_expired_month = models.CharField(max_length=4,blank=True)
+	card_expired_year = models.CharField(max_length=4,blank=True)
+	paypal_use = models.CharField(max_length=2,blank=True)
+	paypal_email = models.CharField(max_length=50,blank=True)
+	paypal_pw = models.CharField(max_length=50,blank=True)         
+
