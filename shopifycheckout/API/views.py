@@ -9,6 +9,8 @@ from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView,
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework import status
+from API.models import *
+
 
 
 class Login(APIView):
@@ -39,3 +41,40 @@ class Login(APIView):
             'statusCode': status.HTTP_401_UNAUTHORIZED,
             'message': 'Username or password is invalid'
         }, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class UserManagement(APIView):
+
+    def post(self, request,format=None):
+        data = request.data
+        
+        username = data.get('username', None)
+        password = data.get('password', None)
+        firstname = data.get('firstname',None)
+        lastname = data.get('lastname',None)
+        email = data.get('email',None)
+        phone_number = data.get('phoneNumber',None)
+        if username and  password and firstname and lastname and  email and phone_number:
+            user = User.objects.create_user(username=username,
+                                 email=email,
+                                 password=password,
+                                 last_name=lastname,
+                                 first_name=firstname
+                                )
+            Profile.objects.create(user=user,phone_number=phone_number)
+
+            return Response(
+            {
+                'status': 'success',
+                'statusCode': status.HTTP_201_CREATED,
+                'message':'successfully UserCreated',
+                
+            }, status=status.HTTP_201_CREATED)
+
+        else:
+            return Response({
+            'status': 'Failed',
+            'statusCode': status.HTTP_401_UNAUTHORIZED,
+            'message': 'Please Provide username and password firstname and lastname and email and phoneNumber'
+        }, status=status.HTTP_401_UNAUTHORIZED)
+                
