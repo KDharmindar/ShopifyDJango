@@ -3,7 +3,7 @@ import { GmailAccountsComponent } from '../gmail-accounts/gmail-accounts.compone
 import { NgModule} from '@angular/core';
 import { CommonModule} from '@angular/common';
 import { Routes, RouterModule} from '@angular/router';
-
+import { AuthGuard } from '../_guards/auth.guard';
 import { Error404Component} from '../shared/components/error404/error404.component';
 import { TaskCreatorComponent} from '../task-creator/task-creator.component';
 import { DashboardComponent} from '../dashboard/dashboard.component';
@@ -47,8 +47,7 @@ const appRoutes : Routes = [
 		  {path: '404', component: Error404Component}, 
 		  {path: '', redirectTo: '/home/dashboard', pathMatch: 'full'},
 		  {path: '**', redirectTo: '/404'}
-		]
- } 
+		], canActivate: [AuthGuard]
  ];
 
 @NgModule({

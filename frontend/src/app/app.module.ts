@@ -3,6 +3,8 @@ import { BrowserModule} from '@angular/platform-browser';
 import { NgModule} from '@angular/core';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
+import { AuthGuard } from './_guards/auth.guard';
+
 import { AppComponent} from './app.component';
 import { HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -59,7 +61,8 @@ import { AuthService } from './service/auth.service';
     // HomeModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
