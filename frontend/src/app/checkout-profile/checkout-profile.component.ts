@@ -1,5 +1,7 @@
 import { FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { CheckoutService } from '../service/checkout.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-checkout-profile',
@@ -9,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class CheckoutProfileComponent implements OnInit {
 
   checkout:any;
-  constructor(private fb:FormBuilder) {
+  constructor(private fb:FormBuilder, private checkoutservice: CheckoutService, private router: Router) {
     this.checkout = fb.group({
       first_name:['',Validators.required],
       last_name:'',
@@ -40,7 +42,15 @@ export class CheckoutProfileComponent implements OnInit {
   }
 
   saveCheckout(){
-    console.log('I am saved',this.checkout)
+    console.log('I am saved',this.checkout.value);
+        this.checkoutservice.checkoutProfile(this.checkout.value)
+            .subscribe(
+                data => {
+                    this.router.navigate(['/home/checkout-profile']);
+                },
+                error => {
+
+        });    
   }
 
 }

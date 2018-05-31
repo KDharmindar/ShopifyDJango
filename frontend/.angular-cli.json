@@ -26,8 +26,9 @@
         "scripts": [
             "../node_modules/jquery/dist/jquery.min.js",
             "assets/js/custom.min.js",
-            "assets/js/sticky-kit.min.js",
-            "assets/js/sidebarmenu.js"
+            "assets/js/sticky-kit.min.js",          
+            "assets/js/bootstrap.min.js",
+            "assets/js/popper.min.js"            
         ],
         "environmentSource": "environments/environment.ts",
         "environments": {

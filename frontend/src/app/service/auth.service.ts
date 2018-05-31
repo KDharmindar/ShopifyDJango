@@ -1,19 +1,31 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+// import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Http, Response, RequestOptions, Headers, Request } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
  
 @Injectable()
 export class AuthService {
 	private url = 'http://54.89.230.137/api/v1/login/';
-    constructor(private http: HttpClient) { }
- 
+    constructor(private httpclient: Http) { }
+
+    getHeader() {
+        const headers = new Headers();
+        //headers.append('content-type', 'application/x-www-form-urlencoded');
+        headers.append('content-type', 'application/json');
+        return headers;
+    }
 
 
     login(username: string, password: string) {
     	console.log(username);
-        return this.http.
-        	post(this.url, { 'username': username, 'password': password,'csrfmiddlewaretoken': '{{ csrf_token }}' })
+
+        const requestOptions = new RequestOptions({
+          headers: this.getHeader()
+        });      
+
+        return this.httpclient.
+        	post(this.url, { 'username': username, 'password': password,'csrfmiddlewaretoken': '{{ csrf_token }}'}, requestOptions)
             .map(user => {
                 // login successful if there's a jwt token in the response
                 if (user) {

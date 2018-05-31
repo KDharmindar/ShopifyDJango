@@ -4,9 +4,9 @@ import { NgModule} from '@angular/core';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { AuthGuard } from './_guards/auth.guard';
-
+import { HttpModule } from '@angular/http';
 import { AppComponent} from './app.component';
-import { HttpClientModule} from '@angular/common/http';
+// import { HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
   MatInputModule,
@@ -30,6 +30,7 @@ import {
 import { LoginComponent } from './login/login.component';
 // import { HomeModule } from './home/home.module';
 import { AuthService } from './service/auth.service';
+import { CheckoutService } from './service/checkout.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { AuthService } from './service/auth.service';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
+    // HttpClientModule,
+    HttpModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     MatTableModule,
@@ -62,7 +64,8 @@ import { AuthService } from './service/auth.service';
   ],
   providers: [
     AuthService,
-    AuthGuard
+    AuthGuard,
+    CheckoutService
   ],
   bootstrap: [AppComponent]
 })

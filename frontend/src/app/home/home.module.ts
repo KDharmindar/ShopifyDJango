@@ -36,7 +36,7 @@ import {
 
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-const appRoutes : Routes = [	  
+const appRoutes : Routes = [
 	  {path: 'home', component: HomeComponent, children:[ 
 		  {path: 'dashboard', component: DashboardComponent}, 
 		  {path: 'task-creator', component: TaskCreatorComponent}, 
@@ -47,7 +47,7 @@ const appRoutes : Routes = [
 		  {path: '404', component: Error404Component}, 
 		  {path: '', redirectTo: '/home/dashboard', pathMatch: 'full'},
 		  {path: '**', redirectTo: '/404'}
-		], canActivate: [AuthGuard]
+		], canActivate: [AuthGuard]}
  ];
 
 @NgModule({
@@ -72,7 +72,9 @@ const appRoutes : Routes = [
 	MatCheckboxModule,
 	MatNativeDateModule
   ],
-  exports: [RouterModule],
+  exports: [
+  RouterModule,
+  ],
   declarations: [
     HomeComponent,
 	DashboardComponent,
