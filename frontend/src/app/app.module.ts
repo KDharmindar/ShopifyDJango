@@ -31,6 +31,7 @@ import { LoginComponent } from './login/login.component';
 // import { HomeModule } from './home/home.module';
 import { AuthService } from './service/auth.service';
 import { CheckoutService } from './service/checkout.service';
+import { CreatetaskService } from './service/createtask.service';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { CheckoutService } from './service/checkout.service';
   providers: [
     AuthService,
     AuthGuard,
-    CheckoutService
+    CheckoutService,
+    CreatetaskService
   ],
   bootstrap: [AppComponent]
 })

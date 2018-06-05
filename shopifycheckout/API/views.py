@@ -10,6 +10,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework import status
 from API.models import *
+import json
 
 
 
@@ -82,56 +83,62 @@ class UserManagement(APIView):
 class Profilecheckout(APIView):
 
     def post(self, request, format=None):
-        data = request.data
-        print("++++++++++++",data)
-        if len(data) > 0 :
-            for rec in data:
-                print(rec)
-                
-                first_name = rec.get('first_name', None)
-                last_name = rec.get('last_name', None)
-                address1 = rec.get('address1', None)                
-                address2 = rec.get('address2', None)
+        rec = request.data
+        # print("++++++++++++",data)
+        # data_json = json.loads(data)
+        # print("---",data["first_name"])
+        # print(data.get('first_name', None))
+        # print(data.get('zip', None))
+        if len(rec) > 0 :
+            # for rec in data:
+            print(rec)
+            first_name = rec.get('first_name', None)
+            last_name = rec.get('last_name', None)
+            address1 = rec.get('address_1', None)
+            address2 = rec.get('address_2', None)
 
-                city = rec.get('city', None)
-                state = rec.get('state', None)
-                zip_val = rec.get('zip', None)
-                email = rec.get('email', None)
+            city = rec.get('city', None)
+            state = rec.get('state', None)
+            zip_val = rec.get('zipcode', None)
+            email = rec.get('email', None)
 
-                phone = rec.get('phone', None)
-                card_num = rec.get('card_num', None)
-                card_cvv = rec.get('card_cvv', None)                
-                card_expired_month = rec.get('card_expired_month', None)
+            phone = rec.get('phone', None)
+            card_num = rec.get('card', None)
+            card_cvv = rec.get('cvv', None)
 
-                card_expired_year = rec.get('card_expired_year', None)
-                paypal_use = rec.get('paypal_use', None)
-                paypal_email = rec.get('paypal_email', None)
-                paypal_pw = rec.get('paypal_pw', None)
+            # card_expired_month = rec.get('expiryDate', None)
+            # card_expired_year = rec.get('expiryDate', None)
+            card_expired_date = rec.get('expiryDate', None)
+            # card_expired_month = 23
+            # card_expired_year = 24
+            paypal_use = rec.get('isPaypal', None)
+            paypal_email = rec.get('paypalEmail', None)
+            paypal_pw = rec.get('paypalPassword', None)
+            if (first_name!=None and last_name!=None and address1!=None and address2!=None and city!=None\
+                and  state!=None and zip_val!=None and email!=None and phone!=None and card_num!=None and \
+                card_cvv!=None and card_expired_date!=None and\
+                paypal_use!=None and paypal_email!=None and paypal_pw!=None):
+                print("++++")
+                Checkout.objects.create(first_name=first_name,last_name=last_name,
+                                        address1=address1,address2=address1,city=city,
+                                        state=state,zipcode=zip_val,email=email,phone=phone,
+                                        card_num=card_num,card_cvv=card_cvv,paypal_use=paypal_use,
+                                        card_expired_date=card_expired_date,paypal_email=paypal_email,
+                                        paypal_pw=paypal_pw
+                                        )
 
-                if first_name and last_name and address1 and address2 and city\
-                    and  state and zip_val and email and phone and card_num and \
-                    card_cvv and card_expired_month and card_expired_year and\
-                    paypal_use and paypal_email and paypal_pw:
-
-                    Checkout.objects.create(first_name=first_name,last_name=last_name,
-                                            address1=address1,address2=address1,city=city,
-                                            state=state,zipcode=zip_val,email=email,phone=phone,
-                                            card_num=card_num,card_cvv=card_cvv,paypal_use=paypal_use,
-                                            card_expired_month=card_expired_month,paypal_email=paypal_email,
-                                            card_expired_year=card_expired_year,paypal_pw=paypal_pw
-                                            )
-
-                else:
-                    return Response({
-                        'message': 'Invalid Data '
-                        },status=status.HTTP_401_UNAUTHORIZED)
+            else:
+                print("----")
+                return Response({
+                    'message': 'Invalid Data'
+                    },status=status.HTTP_401_UNAUTHORIZED)
 
             return Response({
-                'status': 'success',
+                'stat': 'success',
                 'statusCode': status.HTTP_201_CREATED,
                 'message':'successfully Checkout Record created',
-                
-            }, status=status.HTTP_201_CREATED)        
+
+            }, status=status.HTTP_201_CREATED)
             
                 
         else:
@@ -152,4 +159,46 @@ class Profilecheckout(APIView):
         # else:
         #     return Response({
         #     'message': 'Username or password is invalid'
-        # }, status=status.HTTP_401_UNAUTHORIZED)            
+        # }, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class Createtask(APIView):
+    def post(self, request, format=None):
+        rec = request.data
+        print(rec)
+        if len(rec) > 0:
+            # for rec in data:
+            print(rec)
+            billing_profile = rec.get('billingProfile', None)
+            checkout_type = rec.get('checkoutType', None)
+            type = rec.get('type', None)
+            size = rec.get('size', None)
+
+            proxy = rec.get('proxy', None)
+            quantity = rec.get('quantity', None)
+            site = rec.get('site', None)
+
+            if (checkout_type != None and type != None and size != None and proxy != None and quantity != None \
+                        and site != None):
+                Task.objects.create(billing_profile=billing_profile, checkout_type=checkout_type,
+                                    type=type, size=size, proxy=proxy,
+                                    quantity=quantity, site=site)
+
+            else:
+                print("----")
+                return Response({
+                    'message': 'Invalid Data'
+                }, status=status.HTTP_401_UNAUTHORIZED)
+
+            return Response({
+                'stat': 'success',
+                'statusCode': status.HTTP_201_CREATED,
+                'message': 'successfully Checkout Record created',
+
+            }, status=status.HTTP_201_CREATED)
+
+
+        else:
+            return Response({
+                'message': 'Unauthorized request'
+            }, status=status.HTTP_401_UNAUTHORIZED)

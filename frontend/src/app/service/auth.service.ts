@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map'
  
 @Injectable()
 export class AuthService {
-	private url = 'http://54.89.230.137/api/v1/login/';
+	private url = 'http://localhost:8000/api/v1/login/';
     constructor(private httpclient: Http) { }
 
     getHeader() {

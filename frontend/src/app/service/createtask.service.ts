@@ -5,8 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
 @Injectable()
-export class CheckoutService {
-	private url = 'http://localhost:8000/api/v1/billings';
+export class CreatetaskService {
+	private url = 'http://localhost:8000/api/v1/createtask';
 	constructor(private httpclient: Http) { }
 
     getHeader() {
@@ -16,7 +16,7 @@ export class CheckoutService {
         return headers;
     }
 
-	checkoutProfile(checkout: any){
+	taskCreator(checkout: any){
         const requestOptions = new RequestOptions({
           headers: this.getHeader()
         });  

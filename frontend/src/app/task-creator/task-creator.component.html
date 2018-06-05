@@ -40,7 +40,7 @@
             <mat-form-field>
                 <input matInput type="number" placeholder="Quantity" formControlName="quantity" min="0" max="50">
             </mat-form-field>
-            <button mat-raised-button color="primary" (click)="createTask()">Create Task</button>
+            <button mat-raised-button color="primary" (click)="createTask()" [disabled]="!task.valid">Create Task</button>
         </form>
     </div>
 </div>
