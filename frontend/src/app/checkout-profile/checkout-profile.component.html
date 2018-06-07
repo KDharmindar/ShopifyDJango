@@ -83,7 +83,7 @@
             <input type="file" accept=".csv" (change)="csv2Array($event)" style="display:none" #file_path>
             <!-- <input type="file" id="imgupload" style="display:none"/>  -->
             <!-- <button id="OpenImgUpload">Image Upload</button> -->
-        <button mat-raised-button [disabled]="!checkout.valid">
+        <button mat-raised-button (click)="exportProfile()" [disabled]="!checkout.valid">
             <i class="mdi mdi-export" ></i> Export</button>
         <div class="pull-right">
             <button mat-button color="primary">

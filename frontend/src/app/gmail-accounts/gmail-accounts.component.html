@@ -11,62 +11,30 @@
   
 <!-- Content -->
 
-<mat-grid-list cols="3" rowHeight="300px">
-  <mat-grid-tile>  
-  </mat-grid-tile>
+<mat-grid-list cols="1" rowHeight="300px" rowWidth="800px">
   <mat-grid-tile class="grid-border"> 
-    <form class="gmail-form">
-      <mat-form-field class="gmail-form-full-width">
-        <textarea matInput placeholder="email:password" rows="5"></textarea>
+    <form class="gmail-form" [formGroup]="gmail_account">
+      <mat-form-field style="width: 100%">
+        <textarea matInput placeholder="E-mail:Password" formControlName="gmail_list"></textarea>
       </mat-form-field>
     </form>
   </mat-grid-tile>
-  <mat-grid-tile>  
-  </mat-grid-tile>  
 </mat-grid-list>
 
 <mat-grid-list cols="4" rowHeight="100px">
   <mat-grid-tile>
-    <button mat-raised-button color="primary">Save</button>
+    <button mat-raised-button color="primary" (click)="save_gmail()"> Save </button>
   </mat-grid-tile>
   <mat-grid-tile>
-    <button mat-raised-button color="primary">Clear and restart browser session</button>
+    <!-- <button mat-raised-button color="primary" (click)="clear_session()"> Clear and restart browser session </button> -->
+    <button mat-raised-button color="primary" (click)="clear_session()"> Clear </button>
   </mat-grid-tile>
   <mat-grid-tile>
-    <button mat-raised-button color="primary">Export to file</button>
+    <button mat-raised-button color="primary" (click)="export_gmail()"> Export </button>
   </mat-grid-tile>
   <mat-grid-tile>
-    <button mat-raised-button color="primary">Import</button>
+    <button mat-raised-button color="primary" (click)="file_path.click()"> Import </button>
+    <input type="file" accept=".csv" (change)="import_gmail($event)" style="display:none" #file_path>
   </mat-grid-tile>
 </mat-grid-list>
 
-<mat-grid-list cols="6" rowHeight="100px">
-  <mat-grid-tile>
-    <button mat-raised-button class="empty-box">
-      <br>
-    </button>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <button mat-raised-button class="empty-box">
-      <br>
-    </button>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <button mat-raised-button class="empty-box">
-      <br>
-    </button>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <button mat-raised-button color="warn">Captcha</button>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <button mat-raised-button class="empty-box">
-      <br>
-    </button>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <button mat-raised-button class="empty-box">
-      <br>
-    </button>
-  </mat-grid-tile>
-</mat-grid-list>

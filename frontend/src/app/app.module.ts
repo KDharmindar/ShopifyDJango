@@ -32,6 +32,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from './service/auth.service';
 import { CheckoutService } from './service/checkout.service';
 import { CreatetaskService } from './service/createtask.service';
+import { GmailaccountService } from './service/gmailaccount.service';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { CreatetaskService } from './service/createtask.service';
     AuthService,
     AuthGuard,
     CheckoutService,
-    CreatetaskService
+    CreatetaskService,
+    GmailaccountService
   ],
   bootstrap: [AppComponent]
 })

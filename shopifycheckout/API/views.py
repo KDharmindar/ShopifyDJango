@@ -202,3 +202,30 @@ class Createtask(APIView):
             return Response({
                 'message': 'Unauthorized request'
             }, status=status.HTTP_401_UNAUTHORIZED)
+
+class Savegmail(APIView):
+    def post(self, request, format=None):
+        rec = request.data
+        if len(rec) > 0:
+            # for rec in data:
+            print(rec)
+            for rec_one in rec:
+                email_address = rec_one.get('email',None)
+                password = rec_one.get('password',None)
+                if (email_address != None and password != None):
+                    gmail_account.objects.create(email=email_address,password=password)
+                else:
+                    print("----")
+                    return Response({
+                        'message': 'Invalid Data'
+                    }, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({
+                'stat': 'success',
+                'statusCode': status.HTTP_201_CREATED,
+                'message': 'successfully Checkout Record created',
+
+            }, status=status.HTTP_201_CREATED)
+        else:
+            return Response({
+                'message': 'Unauthorized request'
+            }, status=status.HTTP_401_UNAUTHORIZED)

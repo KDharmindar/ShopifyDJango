@@ -46,5 +46,9 @@ class Task(models.Model):
 	checkout_type 		= models.CharField(max_length=50, blank=True)
 	quantity 			= models.CharField(max_length=50, blank=True)
 
+class gmail_account(models.Model):
+	email 					= models.CharField(max_length=50, blank=True)
+	password 				= models.CharField(max_length=50, blank=True)
+
 
 

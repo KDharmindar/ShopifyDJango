@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^createuser',UserManagement.as_view()),
     url(r'^billings',Profilecheckout.as_view()),
     url(r'^createtask',Createtask.as_view()),
+    url(r'^savegmail',Savegmail.as_view()),
 ]
