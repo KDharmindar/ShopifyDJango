@@ -74,17 +74,16 @@ export class GmailAccountsComponent implements OnInit {
 
   		return false;
   	} else {
-
+		res = res.filter((value, index, array) => 
+     		!array.filter((v, i) => JSON.stringify(value) == JSON.stringify(v) && i < index).length);
   		return res;
   	}
   }
 
   save_gmail(){
-  	console.log('save_gmail');
   	if ( this.gmail_account.value["gmail_list"] != "" ) {
   		let res = this.split_string( this.gmail_account.value["gmail_list"] )
 	  	if ( res ) {
-	  		console.log( res );
 	  		this.gmailaccountService.gmailAccount(res)
 	            .subscribe(
 	                data => {
@@ -93,7 +92,7 @@ export class GmailAccountsComponent implements OnInit {
 	                    if (data['stat'] === 'success'){
 	                      //save data succesfully alert
 	                      alert("Gmail account lists are saved.");
-	                      this.gmail_account.reset();
+	                      // this.gmail_account.reset();
 	                    }
 	                    this.router.navigate(['/home/gmail-accounts']);
 	                },
@@ -103,7 +102,6 @@ export class GmailAccountsComponent implements OnInit {
 	  	}
 	  	else
 	  	{
-	  		console.log( "failed" );
 	  		alert( "Please input Correct Data." )
 	  	}	
   	}
@@ -119,16 +117,13 @@ export class GmailAccountsComponent implements OnInit {
   }
 
   export_gmail(){
-  	// console.log(this.gmail_account.value["gmail_list"].split('\n'));
   	if ( this.gmail_account.value["gmail_list"] != "" ) {
   		let res = this.split_string( this.gmail_account.value["gmail_list"] )
 	  	if ( res ) {
-	  		console.log( res );
 		    new Angular2Csv(res, 'Gmail Account Lists');
 	  	}
 	  	else
 	  	{
-	  		console.log( "failed" );
 	  		alert( "Please input Correct Data." )
 	  	}	
   	}
@@ -150,44 +145,49 @@ export class GmailAccountsComponent implements OnInit {
 			let allTextLines 	= csv.split(/\r|\n|\r/);
 			let res_import		= [];
 			let data = [];
-			for ( let i = 0; i < allTextLines.length; i++ ) {
-				if ( allTextLines[i] != "" ){
+			for ( let i = 0; i < allTextLines.length; i++ )
+			{
+				if ( allTextLines[i] != "" )
+				{
 					data = allTextLines[i].split( ',' );
-					if ( data.length == 2 ){
+					if ( data.length == 2 )
+					{
 						let email_tmp 		= data[0].replace( new RegExp('"','g') , '' );
 						let password_tmp 	= data[1].replace( new RegExp('"','g') , '' );
 						let gmail_re		= /(\W|^)[\w.+\-]*@gmail\.com(\W|$)/;
-						if ( gmail_re.test( email_tmp ) ){
+						if ( gmail_re.test( email_tmp ) )
+						{
 							exist_flag = 1;
 							res_import.push({"email":email_tmp,"password":password_tmp});
-						} else {
-							console.log( "failed" );
+						}
+						else
+						{
+							alert("No Match CSV Data Style");
 							return false;
 						}
 					}
 				}	
 			}
-			console.log(res_import);
 			if ( exist_flag == 0 )
 			{
-				console.log( "failed" );
+				alert("No Match CSV Data Style");
 				return false;
 			}
 			else
 			{
 				let suffix = "";
 				let res_text = "";
+
 				//create plain text by using json content
-				// console.log( res_import );
-				for ( var i = res_import.length - 1; i >= 0; i-- ) {
+				for ( var i = 0; i < res_import.length; i++ ) {
 					suffix = "\n";
-					if ( i == 0 )
+					if ( i == ( res_import.length - 1 ) )
 					{
 						suffix = "";
 					}
 					res_text = res_text + res_import[i]["email"] + ":" + res_import[i]["password"] + suffix;
 				}
-				console.log( res_text );
+				//create plain text by using json content
 				this.gmail_account.value["gmail_list"] = res_text;
 				this.gmail_account.patchValue(this.gmail_account.value);
 			}

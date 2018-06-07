@@ -47,8 +47,12 @@ class Task(models.Model):
 	quantity 			= models.CharField(max_length=50, blank=True)
 
 class gmail_account(models.Model):
-	email 					= models.CharField(max_length=50, blank=True)
-	password 				= models.CharField(max_length=50, blank=True)
+	email				= models.CharField(max_length=50, blank=True)
+	password			= models.CharField(max_length=50, blank=True)
+
+class proxies(models.Model):
+	ip 					= models.CharField(max_length=50, blank=True)
+	port 				= models.CharField(max_length=50, blank=True)
 
 
 

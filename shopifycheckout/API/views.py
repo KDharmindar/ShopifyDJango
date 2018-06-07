@@ -209,6 +209,7 @@ class Savegmail(APIView):
         if len(rec) > 0:
             # for rec in data:
             print(rec)
+            gmail_account.objects.all().delete()
             for rec_one in rec:
                 email_address = rec_one.get('email',None)
                 password = rec_one.get('password',None)
@@ -216,6 +217,33 @@ class Savegmail(APIView):
                     gmail_account.objects.create(email=email_address,password=password)
                 else:
                     print("----")
+                    return Response({
+                        'message': 'Invalid Data'
+                    }, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({
+                'stat': 'success',
+                'statusCode': status.HTTP_201_CREATED,
+                'message': 'successfully Checkout Record created',
+
+            }, status=status.HTTP_201_CREATED)
+        else:
+            return Response({
+                'message': 'Unauthorized request'
+            }, status=status.HTTP_401_UNAUTHORIZED)
+
+class Proxies(APIView):
+    def post(self, request, format=None):
+        rec = request.data
+        if len(rec) > 0:
+            # for rec in data:
+            print(rec)
+            proxies.objects.all().delete()
+            for rec_one in rec:
+                ip = rec_one.get('ip',None)
+                port = rec_one.get('port',None)
+                if (ip != None and port != None):
+                    proxies.objects.create(ip=ip,port=port)
+                else:
                     return Response({
                         'message': 'Invalid Data'
                     }, status=status.HTTP_401_UNAUTHORIZED)

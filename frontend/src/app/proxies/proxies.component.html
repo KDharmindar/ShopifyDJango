@@ -12,13 +12,13 @@
 <!-- Content -->
 
 <mat-card>
-  <mat-grid-list cols="10" rowHeight="200px">
-    <mat-grid-tile colspan="8" class="grid-border">
-      <div class="form-container">
-        <mat-form-field>
-          <input matInput placeholder="Proxies" >
+  <mat-grid-list cols="10" rowHeight="300px" rowWidth="800px">
+    <mat-grid-tile colspan="8" class="grid-border"> 
+      <form class="gmail-form" [formGroup]="proxies" style="width:30%">
+        <mat-form-field style="width: 100%">
+          <textarea matInput placeholder="Proxies ( IP:Port )" formControlName="proxies_list"></textarea>
         </mat-form-field>
-      </div>
+      </form>
     </mat-grid-tile>
     <mat-grid-tile colspan="2" class="grid-border">
       Speed results (ms) for proxy test
@@ -29,49 +29,19 @@
 
 <mat-grid-list cols="5" rowHeight="100px">
   <mat-grid-tile>
-    <button mat-raised-button color="primary">Save to bot</button>
+    <button mat-raised-button color="primary" (click)="save_proxy()">Save to bot</button>
   </mat-grid-tile>
   <mat-grid-tile>
-    <button mat-raised-button color="primary">Delete All</button>
+    <button mat-raised-button color="primary" (click)="delete_proxy()">Delete All</button>
   </mat-grid-tile>
   <mat-grid-tile>
-    <button mat-raised-button color="primary">Test Proxies</button>
+    <button mat-raised-button color="primary" (click)="test_proxy()">Test Proxies</button>
   </mat-grid-tile>
   <mat-grid-tile>
-    <button mat-raised-button color="primary">Export to file</button>
+    <button mat-raised-button color="primary" (click)="export_proxy()">Export to file</button>
   </mat-grid-tile>
   <mat-grid-tile>
-    <button mat-raised-button color="primary">Import</button>
-  </mat-grid-tile>
-</mat-grid-list>
-
-<mat-grid-list cols="6" rowHeight="100px">
-  <mat-grid-tile>
-    <button mat-raised-button class="empty-box">
-      <br>
-    </button>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <button mat-raised-button class="empty-box">
-      <br>
-    </button>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <button mat-raised-button class="empty-box">
-      <br>
-    </button>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <button mat-raised-button class="empty-box">
-      <br>
-    </button>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <button mat-raised-button color="warn">Proxies</button>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <button mat-raised-button class="empty-box">
-      <br>
-    </button>
+    <button mat-raised-button color="primary" (click)="file_path.click()">Import</button>
+    <input type="file" accept=".csv" (change)="import_proxy($event)" style="display:none" #file_path>
   </mat-grid-tile>
 </mat-grid-list>

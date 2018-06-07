@@ -33,6 +33,7 @@ import { AuthService } from './service/auth.service';
 import { CheckoutService } from './service/checkout.service';
 import { CreatetaskService } from './service/createtask.service';
 import { GmailaccountService } from './service/gmailaccount.service';
+import { ProxiesService } from './service/proxies.service';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { GmailaccountService } from './service/gmailaccount.service';
     AuthGuard,
     CheckoutService,
     CreatetaskService,
-    GmailaccountService
+    GmailaccountService,
+    ProxiesService
   ],
   bootstrap: [AppComponent]
 })
