@@ -34,7 +34,7 @@ export class ProxiesComponent implements OnInit {
   		let split_res 	= str.split(":");
   		proxy_tmp 		= split_res[0].trim().toLowerCase();
   		port_tmp 		= split_res[1];
-  		if ( proxy_re.test( proxy_tmp ) && ( ( port_re.test( port_tmp ) ) && ( parseInt(port_tmp)  < 65536 ) ){
+  		if ( proxy_re.test( proxy_tmp ) && ( ( port_re.test( port_tmp ) ) && ( parseInt(port_tmp)  < 65536 ) ) ){
   			res["ip"] 	= proxy_tmp;
   			res["port"] = port_tmp;
   		} else {
@@ -157,7 +157,7 @@ export class ProxiesComponent implements OnInit {
 						let port_tmp 	= data[1].replace( new RegExp('"','g') , '' );
 						let proxy_re	= /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
   						let port_re		= /[0-9]+$/;
-  						if ( proxy_re.test( ip_tmp ) && ( ( port_re.test( port_tmp ) ) && ( parseInt(port_tmp)  < 65536 ) ){
+  						if ( proxy_re.test( ip_tmp ) && ( ( port_re.test( port_tmp ) ) && ( parseInt(port_tmp)  < 65536 ) ) ){
 							exist_flag = 1;
 							res_import.push({"ip":ip_tmp,"port":port_tmp});
 						} else {
