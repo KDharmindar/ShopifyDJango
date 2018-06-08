@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ProxiesService } from '../service/proxies.service';;
 import { Router, ActivatedRoute } from '@angular/router';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-proxies',
@@ -92,7 +93,8 @@ export class ProxiesComponent implements OnInit {
 	                    data = data.json();
 	                    if (data['stat'] === 'success'){
 	                      //save data succesfully alert
-	                      alert("Proxy lists are saved.");
+	                      // alert("Proxy lists are saved.");
+                        Swal("Nice!", "Proxy lists are saved!", "success");
 	                      // this.proxies.reset();
 	                    }
 	                    this.router.navigate(['/home/proxies']);
@@ -103,18 +105,21 @@ export class ProxiesComponent implements OnInit {
 	  	}
 	  	else
 	  	{
-	  		alert( "Please input Correct Data." )
+	  		// alert( "Please input Correct Data." );
+        Swal("Wrong!", "Please input Correct Data.", "error");
 	  	}	
   	}
   	else
   	{
-  		alert( "Please Input Data first." )
+  		// alert( "Please Input Data first." );
+      Swal("Wrong!", "Please Input Data first.", "error");
   	}
   	
   }
 
   delete_proxy(){
   	this.proxies.reset();
+    Swal("Clear!", "All data is cleared.", "success");
   }
 
   test_proxy(){
@@ -129,12 +134,14 @@ export class ProxiesComponent implements OnInit {
 	  	}
 	  	else
 	  	{
-	  		alert( "Please input Correct Data." )
+	  		// alert( "Please input Correct Data." );
+        Swal("Wrong!", "Please input Correct Data.", "error");
 	  	}	
   	}
   	else
   	{
-  		alert( "Please Input Data first." )
+  		// alert( "Please Input Data first." );
+      Swal("Wrong!", "Please Input Data first.", "error");
   	}
   }
 
@@ -161,7 +168,8 @@ export class ProxiesComponent implements OnInit {
 							exist_flag = 1;
 							res_import.push({"ip":ip_tmp,"port":port_tmp});
 						} else {
-							alert("No Match CSV Data Style");
+							// alert("No Match CSV Data Style");
+              Swal("Wrong!", "No Match CSV Data Style.", "error");
 							return false;
 						}
 					}
@@ -169,7 +177,8 @@ export class ProxiesComponent implements OnInit {
 			}
 			if ( exist_flag == 0 )
 			{
-				alert("No Match CSV Data Style");
+				// alert("No Match CSV Data Style");
+        Swal("Wrong!", "No Match CSV Data Style.", "error");
 				return false;
 			}
 			else

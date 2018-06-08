@@ -2,6 +2,7 @@ import { FormGroup, FormBuilder,Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { CreatetaskService } from '../service/createtask.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class TaskCreatorComponent implements OnInit {
                     if (data['stat'] === 'success'){
                       //save data succesfully alert
                       alert("Task is created.");
+                      Swal("Nice!", "Task is created.", "success");
                       this.task.reset();
                     }
                     this.router.navigate(['/home/task-creator']);
