@@ -2,6 +2,8 @@ import time
 
 import socket
 import os
+import pickle
+
 
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException, StaleElementReferenceException, WebDriverException, NoSuchElementException
@@ -13,7 +15,10 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.common.proxy import Proxy, ProxyType
 from .settings import CHROME_PATH, FIREFOX_PATH, BACKEND_DEBUG_MODE as DEBUG, PROXY, DefaultURL
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.options import Options
+from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.keys import Keys
 # from .exceptions import ConfigException
 
 
@@ -39,7 +44,7 @@ number of seconds used to wait the web page's loading.
 """
 
 SEE_ALL_PLACEHOLDER = 'See all'
-
+IDLE_INTERVAL_IN_SECONDS = 10
 
 def wait_invisibility_xpath(driver, xpath, wait_timeout=None):
     if wait_timeout is None:
@@ -88,7 +93,7 @@ def get_by_xpath(driver, xpath, wait_timeout=None):
             (By.XPATH, xpath)
         ))
 
-        
+
 def extracts_see_all_url(driver):
     """
     Retrieve from the the Company front page the url of the page containing the list of its employees.
@@ -207,6 +212,34 @@ def store_session(driver, email='1'):
     print('storing cookie:', storefile)
     pickle.dump(driver.get_cookies() , open(storefile,"wb"))
 
+
+def get_search_input(driver):
+    return driver.find_element_by_id("search_input")
+
+def resolve_cookie(driver):
+    try:
+        appifyCookie = driver.find_element_by_id('appifyCookie')
+        appifyCookie.click()
+    except NoSuchElementException:
+        return driver
+    return driver
+
+
+
+def search_product_by_keyword(driver, keyword):
+    driver = resolve_cookie(driver)
+    element = get_search_input(driver)
+    element.send_keys(keyword + Keys.DOWN)
+    wait = WebDriverWait(driver, IDLE_INTERVAL_IN_SECONDS)
+    input_click_button = driver.find_element_by_class_name("ksplash-header-search-inner")
+    # element.click()
+    veiw_all_link_button = wait.until(ec.visibility_of_element_located(
+        (By.CSS_SELECTOR, "li.snize-view-all-link")))
+    try:
+        view_all_link_button.click()
+    except Exception as e:
+        print('error:', e)
+    return driver
 
 class SeleniumSpiderMixin:
     def __init__(self, selenium_hostname=None, **kwargs):

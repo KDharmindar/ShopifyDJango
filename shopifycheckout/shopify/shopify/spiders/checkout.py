@@ -14,7 +14,7 @@ import time
 from scrapy import Request, FormRequest, Item
 from scrapy.loader import ItemLoader
 from scrapy.loader.processors import TakeFirst
-from shopify.selenium import SeleniumSpiderMixin, extracts_see_all_url
+from shopify.selenium import SeleniumSpiderMixin, extracts_see_all_url, search_product_by_keyword
 URLS_FILE = "urls.txt"
 IDLE_INTERVAL_IN_SECONDS = 30
 
@@ -33,6 +33,7 @@ class CheckoutSpider(SeleniumSpiderMixin, ShopifySpider):
         self.driver.get('https://kith.com/')
         wait = WebDriverWait(self.driver, IDLE_INTERVAL_IN_SECONDS)
         print('----------------', wait)
+        product_search_reslt = search_product_by_keyword(self.driver, 'sky')
         time.sleep(IDLE_INTERVAL_IN_SECONDS)
 
     def _extract_json_info(self, response):
