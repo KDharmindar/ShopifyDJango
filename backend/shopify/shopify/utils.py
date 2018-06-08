@@ -3,7 +3,7 @@ import os
 import random
 import re
 
-from backend.shopify.shopify.exceptions import ConfigError
+from shopify.exceptions import ConfigError
 
 true_args_values = (1, '1', 'true', 'True', True)
 false_args_values = (0, '0', 'false', 'False', False, None)

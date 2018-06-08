@@ -14,9 +14,10 @@ BOT_NAME = 'shopify'
 SPIDER_MODULES = ['shopify.spiders']
 NEWSPIDER_MODULE = 'shopify.spiders'
 
+CHROME_PATH = 'chromedriver'
+FIREFOX_PATH = 'geckodriver'
+PROXY = '0.0.0.0'
 
-CHROME_PATH = '/usr/bin/chromedriver'
-FIREFOX_PATH = '/usr/bin/geckodriver'
 
 BACKEND_DEBUG_MODE = True
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
