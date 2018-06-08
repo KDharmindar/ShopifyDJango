@@ -4,7 +4,8 @@ import os
 import datetime
 import uuid
 from abc import ABC, abstractmethod
-from shopify.exceptions import InitializationError, ConfigError, ConnectionError, IOError
+
+from backend.shopify.shopify.exceptions import InitializationError, ConfigError, ConnectionError, IOError
 
 
 class _status:
