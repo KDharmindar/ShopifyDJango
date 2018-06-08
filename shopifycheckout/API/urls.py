@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'^createtask',Createtask.as_view()),
     url(r'^savegmail',Savegmail.as_view()),
     url(r'^proxies',Proxies.as_view()),
+    url(r'^shopify-url',ShopifyURL.as_view()),
 
 ]

@@ -34,6 +34,7 @@ import { CheckoutService } from './service/checkout.service';
 import { CreatetaskService } from './service/createtask.service';
 import { GmailaccountService } from './service/gmailaccount.service';
 import { ProxiesService } from './service/proxies.service';
+import { ShopifyurlService } from './service/shopifyurl.service';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { ProxiesService } from './service/proxies.service';
     CheckoutService,
     CreatetaskService,
     GmailaccountService,
-    ProxiesService
+    ProxiesService,
+    ShopifyurlService
   ],
   bootstrap: [AppComponent]
 })

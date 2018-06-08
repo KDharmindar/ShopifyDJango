@@ -257,3 +257,29 @@ class Proxies(APIView):
             return Response({
                 'message': 'Unauthorized request'
             }, status=status.HTTP_401_UNAUTHORIZED)
+
+class ShopifyURL(APIView):
+    def post(self, request, format=None):
+        rec = request.data
+        if len(rec) > 0:
+            # for rec in data:
+            print(rec)
+            shopifyurl.objects.all().delete()
+            for rec_one in rec:
+                url = rec_one.get('url',None)
+                if (url != None):
+                    shopifyurl.objects.create(url=url)
+                else:
+                    return Response({
+                        'message': 'Invalid Data'
+                    }, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({
+                'stat': 'success',
+                'statusCode': status.HTTP_201_CREATED,
+                'message': 'successfully Checkout Record created',
+
+            }, status=status.HTTP_201_CREATED)
+        else:
+            return Response({
+                'message': 'Unauthorized request'
+            }, status=status.HTTP_401_UNAUTHORIZED)
