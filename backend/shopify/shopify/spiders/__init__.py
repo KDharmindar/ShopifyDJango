@@ -6,28 +6,28 @@ import os
 from urllib.parse import urljoin
 
 from abc import ABC, ABCMeta, abstractmethod
-from shopify.components import CrawlerComponent, monitor
-from shopify.settings import DEFAULT_REQUEST_HEADERS
-from shopify.items import ShopifyItem, ShopifyVariant, ShopifyPrice, ShopifyItemLoader
+from backend.shopify.shopify.components import CrawlerComponent, monitor
+from backend.shopify.shopify.settings import DEFAULT_REQUEST_HEADERS
+from backend.shopify.shopify.items import ShopifyItem, ShopifyVariant, ShopifyPrice, ShopifyItemLoader
 from scrapy.loader import ItemLoader
 from scrapy.loader.processors import TakeFirst
 
 
 class ShopifySpider(CrawlerComponent, Spider):
-    name = None
+    name = "shopify"
 
     # allowed_domains = [""]
     def __init__(self, *args, **kwargs):
         super(Spider, self).__init__()
         super(CrawlerComponent, self).__init__(*args, **kwargs)
         self.product_link = kwargs.get('product_link')
+
         self.headers = DEFAULT_REQUEST_HEADERS
 
-    # def start_requests(self):
-    #     pass
-    #     headers = self.headers.copy()
-    #     yield Request(self.product_link, callback=self._parse_product_page,
-    #                   headers=headers)
+    def start_requests(self):
+        headers = self.headers.copy()
+        yield Request(self.product_link, callback=self._parse_product_page,
+                      headers=headers)
 
     @abstractmethod
     def _extract_json_info(self, response):
@@ -36,7 +36,6 @@ class ShopifySpider(CrawlerComponent, Spider):
     def _fill_item(self, loader):
         if loader.context.get('ajax'):
             return self._fill_from_json(loader)
-
         return self._fill_from_response(loader)
 
     @abstractmethod
@@ -53,8 +52,8 @@ class ShopifySpider(CrawlerComponent, Spider):
             ajax=self._extract_json_info(response),
             )
         item = self._fill_item(loader)
-
         yield item
+
         return self._add_to_cart(response)
 
     @abstractmethod

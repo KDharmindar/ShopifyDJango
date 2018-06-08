@@ -1,4 +1,3 @@
-
 class ConfigError(Exception):
     """ Raises in case of wrong config files """
     pass
