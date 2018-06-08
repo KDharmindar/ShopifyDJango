@@ -39,6 +39,7 @@ export class TaskCreatorComponent implements OnInit {
                     if (data['stat'] === 'success'){
                       //save data succesfully alert
                       alert("Task is created.");
+                      swal("Nice!", "Task is created.", "success");
                       this.task.reset();
                     }
                     this.router.navigate(['/home/task-creator']);

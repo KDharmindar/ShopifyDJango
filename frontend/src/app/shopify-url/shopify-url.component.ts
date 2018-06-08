@@ -88,7 +88,8 @@ export class ShopifyURLComponent implements OnInit {
 	                    data = data.json();
 	                    if ( data['stat'] === 'success' ){
 	                      //save data succesfully alert
-	                      alert("Shopify URLs are saved.");
+	                      // alert("Shopify URLs are saved.");
+                        swal("Nice!", "Shopify URLs are saved.", "success");
 	                      // this.gmail_account.reset();
 	                    }
 	                    this.router.navigate(['/home/shopify-url']);
@@ -99,12 +100,14 @@ export class ShopifyURLComponent implements OnInit {
 	  	}
 	  	else
 	  	{
-	  		alert( "Please input Correct Data." )
+	  		// alert( "Please input Correct Data." );
+        swal("Wrong!", "Please input Correct Data.", "error");
 	  	}	
   	}
   	else
   	{
-  		alert( "Please Input Data first." )
+  		// alert( "Please Input Data first." );
+      swal("Wrong!", "Please Input Data first.", "error");
   	}
   	
   }
@@ -121,12 +124,14 @@ export class ShopifyURLComponent implements OnInit {
 	  	}
 	  	else
 	  	{
-	  		alert( "Please input Correct Data." )
+	  		// alert( "Please input Correct Data." );
+        swal("Wrong!", "Please input Correct Data.", "error");
 	  	}	
   	}
   	else
   	{
-  		alert( "Please Input Data first." )
+  		// alert( "Please Input Data first." );
+      swal("Wrong!", "Please Input Data first.", "error");
   	}
   }
 
@@ -158,7 +163,8 @@ export class ShopifyURLComponent implements OnInit {
 						}
 						else
 						{
-							alert("No Match CSV Data Style");
+							// alert("No Match CSV Data Style");
+              swal("Wrong!", "No Match CSV Data Style.", "error");
 							return false;
 						}
 					}
@@ -166,7 +172,8 @@ export class ShopifyURLComponent implements OnInit {
 			}
 			if ( exist_flag == 0 )
 			{
-				alert("No Match CSV Data Style");
+				// alert("No Match CSV Data Style");
+        swal("Wrong!", "No Match CSV Data Style.", "error");
 				return false;
 			}
 			else

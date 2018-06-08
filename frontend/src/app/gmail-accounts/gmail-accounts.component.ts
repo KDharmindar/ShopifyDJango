@@ -91,7 +91,8 @@ export class GmailAccountsComponent implements OnInit {
 	                    data=data.json();
 	                    if (data['stat'] === 'success'){
 	                      //save data succesfully alert
-	                      alert("Gmail account lists are saved.");
+	                      // alert("Gmail account lists are saved.");
+                        swal("Nice!", "Gmail account lists are saved!", "success");
 	                      // this.gmail_account.reset();
 	                    }
 	                    this.router.navigate(['/home/gmail-accounts']);
@@ -102,12 +103,14 @@ export class GmailAccountsComponent implements OnInit {
 	  	}
 	  	else
 	  	{
-	  		alert( "Please input Correct Data." )
+	  		// alert( "Please input Correct Data." );
+        swal("Wrong!", "Please input Correct Data.", "error");
 	  	}	
   	}
   	else
   	{
-  		alert( "Please Input Data first." )
+  		// alert( "Please Input Data first." );
+      swal("Wrong!", "Please Input Data first.", "error");
   	}
   	
   }
@@ -124,12 +127,14 @@ export class GmailAccountsComponent implements OnInit {
 	  	}
 	  	else
 	  	{
-	  		alert( "Please input Correct Data." )
+	  		// alert( "Please input Correct Data." );
+        swal("Wrong!", "Please input Correct Data.", "error");
 	  	}	
   	}
   	else
   	{
-  		alert( "Please Input Data first." )
+  		// alert( "Please Input Data first." );
+      swal("Wrong!", "Please Input Data first.", "error");
   	}
   	
   }
@@ -162,7 +167,8 @@ export class GmailAccountsComponent implements OnInit {
 						}
 						else
 						{
-							alert("No Match CSV Data Style");
+							// alert("No Match CSV Data Style");
+              swal("Wrong!", "No Match CSV Data Style.", "error");
 							return false;
 						}
 					}
@@ -170,7 +176,8 @@ export class GmailAccountsComponent implements OnInit {
 			}
 			if ( exist_flag == 0 )
 			{
-				alert("No Match CSV Data Style");
+				// alert("No Match CSV Data Style");
+        swal("Wrong!", "No Match CSV Data Style.", "error");
 				return false;
 			}
 			else

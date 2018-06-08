@@ -92,7 +92,8 @@ export class ProxiesComponent implements OnInit {
 	                    data = data.json();
 	                    if (data['stat'] === 'success'){
 	                      //save data succesfully alert
-	                      alert("Proxy lists are saved.");
+	                      // alert("Proxy lists are saved.");
+                        swal("Nice!", "Proxy lists are saved!", "success");
 	                      // this.proxies.reset();
 	                    }
 	                    this.router.navigate(['/home/proxies']);
@@ -103,12 +104,14 @@ export class ProxiesComponent implements OnInit {
 	  	}
 	  	else
 	  	{
-	  		alert( "Please input Correct Data." )
+	  		// alert( "Please input Correct Data." );
+        swal("Wrong!", "Please input Correct Data.", "error");
 	  	}	
   	}
   	else
   	{
-  		alert( "Please Input Data first." )
+  		// alert( "Please Input Data first." );
+      swal("Wrong!", "Please Input Data first.", "error");
   	}
   	
   }
@@ -129,12 +132,14 @@ export class ProxiesComponent implements OnInit {
 	  	}
 	  	else
 	  	{
-	  		alert( "Please input Correct Data." )
+	  		// alert( "Please input Correct Data." );
+        swal("Wrong!", "Please input Correct Data.", "error");
 	  	}	
   	}
   	else
   	{
-  		alert( "Please Input Data first." )
+  		// alert( "Please Input Data first." );
+      swal("Wrong!", "Please Input Data first.", "error");
   	}
   }
 
@@ -161,7 +166,8 @@ export class ProxiesComponent implements OnInit {
 							exist_flag = 1;
 							res_import.push({"ip":ip_tmp,"port":port_tmp});
 						} else {
-							alert("No Match CSV Data Style");
+							// alert("No Match CSV Data Style");
+              swal("Wrong!", "No Match CSV Data Style.", "error");
 							return false;
 						}
 					}
@@ -169,7 +175,8 @@ export class ProxiesComponent implements OnInit {
 			}
 			if ( exist_flag == 0 )
 			{
-				alert("No Match CSV Data Style");
+				// alert("No Match CSV Data Style");
+        swal("Wrong!", "No Match CSV Data Style.", "error");
 				return false;
 			}
 			else

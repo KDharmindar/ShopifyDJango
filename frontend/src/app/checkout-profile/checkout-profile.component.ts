@@ -53,7 +53,8 @@ export class CheckoutProfileComponent implements OnInit {
                     data=data.json();
                     if (data['stat'] === 'success'){
                       //save data succesfully alert
-                      alert("Checkout Profile Created.");
+                      //alert("Checkout Profile Created.");
+                      swal("Nice!", "Checkout Profile Created!", "success");
                       this.checkout.reset();
                     }
                     this.router.navigate(['/home/checkout-profile']);
@@ -121,7 +122,8 @@ export class CheckoutProfileComponent implements OnInit {
               // this.checkout.patchValue(this.checkout.value);
             }
           } else {
-            alert("No match CSV data style.")
+            //alert("No match CSV data style.")
+            swal("Wrong!", "No match CSV data style!", "error");
           }
         }
       } 
