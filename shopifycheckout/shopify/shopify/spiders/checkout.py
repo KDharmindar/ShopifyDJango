@@ -3,6 +3,8 @@ from shopify.spiders import ShopifySpider
 from shopify.items import ShopifyItem, ShopifyPrice, ShopifyVariant, ShopifyItemLoader
 from shopify.utils import is_empty
 from shopify.gateway import get_profile
+from selenium.webdriver.support.wait import WebDriverWait
+
 #from shopify.components import monitor
 import re
 import json
