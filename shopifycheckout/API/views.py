@@ -209,12 +209,12 @@ class Savegmail(APIView):
         if len(rec) > 0:
             # for rec in data:
             print(rec)
-            gmail_account.objects.all().delete()
+            GmailAccount.objects.all().delete()
             for rec_one in rec:
                 email_address = rec_one.get('email',None)
                 password = rec_one.get('password',None)
                 if (email_address != None and password != None):
-                    gmail_account.objects.create(email=email_address,password=password)
+                    GmailAccount.objects.create(email=email_address,password=password)
                 else:
                     print("----")
                     return Response({
@@ -237,12 +237,12 @@ class Proxies(APIView):
         if len(rec) > 0:
             # for rec in data:
             print(rec)
-            proxies.objects.all().delete()
+            Proxies.objects.all().delete()
             for rec_one in rec:
                 ip = rec_one.get('ip',None)
                 port = rec_one.get('port',None)
                 if (ip != None and port != None):
-                    proxies.objects.create(ip=ip,port=port)
+                    Proxies.objects.create(ip=ip,port=port)
                 else:
                     return Response({
                         'message': 'Invalid Data'
@@ -264,11 +264,11 @@ class ShopifyURL(APIView):
         if len(rec) > 0:
             # for rec in data:
             print(rec)
-            shopifyurl.objects.all().delete()
+            ShopifyUrl.objects.all().delete()
             for rec_one in rec:
                 url = rec_one.get('url',None)
                 if (url != None):
-                    shopifyurl.objects.create(url=url)
+                    ShopifyUrl.objects.create(url=url)
                 else:
                     return Response({
                         'message': 'Invalid Data'

@@ -46,15 +46,15 @@ class Task(models.Model):
 	checkout_type 		= models.CharField(max_length=50, blank=True)
 	quantity 			= models.CharField(max_length=50, blank=True)
 
-class gmail_account(models.Model):
+class GmailAccount(models.Model):
 	email				= models.CharField(max_length=50, blank=True)
 	password			= models.CharField(max_length=50, blank=True)
 
-class proxies(models.Model):
+class Proxies(models.Model):
 	ip 					= models.CharField(max_length=50, blank=True)
 	port 				= models.CharField(max_length=50, blank=True)
 
-class shopifyurl(models.Model):
+class ShopifyUrl(models.Model):
 	url 					= models.CharField(max_length=500, blank=True)
 
 
