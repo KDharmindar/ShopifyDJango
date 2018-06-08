@@ -9,6 +9,7 @@ import { TaskCreatorComponent} from '../task-creator/task-creator.component';
 import { DashboardComponent} from '../dashboard/dashboard.component';
 import { SettingsComponent} from '../settings/settings.component';
 import { ProxiesComponent} from '../proxies/proxies.component';
+import { ShopifyURLComponent} from '../shopify-url/shopify-url.component';
 import { HomeComponent} from './home.component';
 
 import { HeaderComponent} from '../shared/components/header/header.component';
@@ -44,6 +45,7 @@ const appRoutes : Routes = [
 		  {path: 'proxies', component: ProxiesComponent}, 
 		  {path: 'settings', component: SettingsComponent}, 
 		  {path: 'gmail-accounts', component: GmailAccountsComponent}, 
+		  {path: 'shopify-url', component: ShopifyURLComponent},
 		  {path: '404', component: Error404Component}, 
 		  {path: '', redirectTo: '/home/dashboard', pathMatch: 'full'},
 		  {path: '**', redirectTo: '/404'}
@@ -76,18 +78,18 @@ const appRoutes : Routes = [
   RouterModule,
   ],
   declarations: [
-    HomeComponent,
-	DashboardComponent,
-	TaskCreatorComponent,
-	SettingsComponent,
-	ProxiesComponent,
-	CheckoutProfileComponent,
-	GmailAccountsComponent,
-	Error404Component,
-	HeaderComponent,
-	FooterComponent,
-	SidebarComponent
-
+	    HomeComponent,
+		DashboardComponent,
+		TaskCreatorComponent,
+		SettingsComponent,
+		ProxiesComponent,
+		CheckoutProfileComponent,
+		GmailAccountsComponent,
+		ShopifyURLComponent,
+		Error404Component,
+		HeaderComponent,
+		FooterComponent,
+		SidebarComponent
   	]
 })
 export class HomeModule {}

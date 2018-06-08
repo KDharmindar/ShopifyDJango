@@ -54,5 +54,7 @@ class proxies(models.Model):
 	ip 					= models.CharField(max_length=50, blank=True)
 	port 				= models.CharField(max_length=50, blank=True)
 
+class shopifyurl(models.Model):
+	url 					= models.CharField(max_length=500, blank=True)
 
 
