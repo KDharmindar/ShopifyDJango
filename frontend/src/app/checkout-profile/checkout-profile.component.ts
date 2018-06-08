@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CheckoutService } from '../service/checkout.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-checkout-profile',
@@ -53,7 +54,8 @@ export class CheckoutProfileComponent implements OnInit {
                     data=data.json();
                     if (data['stat'] === 'success'){
                       //save data succesfully alert
-                      alert("Checkout Profile Created.");
+                      //alert("Checkout Profile Created.");
+                      Swal("Nice!", "Checkout Profile Created!", "success");
                       this.checkout.reset();
                     }
                     this.router.navigate(['/home/checkout-profile']);
@@ -121,7 +123,8 @@ export class CheckoutProfileComponent implements OnInit {
               // this.checkout.patchValue(this.checkout.value);
             }
           } else {
-            alert("No match CSV data style.")
+            //alert("No match CSV data style.")
+            Swal("Wrong!", "No match CSV data style!", "error");
           }
         }
       } 
