@@ -12,7 +12,7 @@ from scrapy.loader import ItemLoader
 from scrapy.loader.processors import TakeFirst
 from shopify.selenium import SeleniumSpiderMixin, extracts_see_all_url
 URLS_FILE = "urls.txt"
-IDLE_INTERVAL_IN_SECONDS = 5
+IDLE_INTERVAL_IN_SECONDS = 3000
 
 
 class CheckoutSpider(SeleniumSpiderMixin, ShopifySpider):
@@ -26,9 +26,11 @@ class CheckoutSpider(SeleniumSpiderMixin, ShopifySpider):
 
 
     def parse(self, response):
-        self.driver.get(url)
+        print('----------------', response)
+        self.driver.get('https://kith.com/')
         wait = WebDriverWait(self.driver, IDLE_INTERVAL_IN_SECONDS)
-        return Request(url=url, callback=self._extract_json_info, dont_filter=True)
+
+
 
 
     def _extract_json_info(self, response):
