@@ -154,7 +154,7 @@ def set_checkout_info(driver, url=None, **kwargs):
     last_name = driver.find_element_by_id('checkout_shipping_address_last_name')
     address1 = driver.find_element_by_id('checkout_shipping_address_address1')
     address2 = driver.find_element_by_id('checkout_shipping_address_address2')
-    city = driver.find_element_by_id('checkout_shipping_address_country')
+    city = driver.find_element_by_id('checkout_shipping_address_city')
     post_code = driver.find_element_by_id('checkout_shipping_address_zip')
     phone_number = driver.find_element_by_id('checkout_shipping_address_phone')
     continue_button = driver.find_element_by_class_name('step__footer__continue-btn')
@@ -177,22 +177,37 @@ def set_checkout_info(driver, url=None, **kwargs):
     shipping_method = driver.find_element_by_class_name('radio__label__primary').text
     next_button.click()
     wait = WebDriverWait(driver, 30)
+    window_before = None
+    while not window_before:
+        window_before = driver.current_window_handle
     next_button = wait.until(ec.visibility_of_element_located(
          (By.CSS_SELECTOR, "button.step__footer__continue-btn")))
-
-    window_before = driver.window_handles[0]
     next_button.click()
-    window_after = driver.window_handles[1]
-    wait = WebDriverWait(driver, 30)
-    time.sleep(20)
-    check_out_with_paypal(window_after)
+    check_out_with_paypal(driver, window_before)
     time.sleep(20)
     return True
 
 
-def check_out_with_paypal(driver):
-    email = driver.find_element_by_id('email').send_keys('chrlmoonstar@gmail.com')
-    password = driver.find_element_by_id('password').send_keys('cha123456')
+def check_out_with_paypal(driver, window_before):
+    paypal_window_handle = None
+    while not paypal_window_handle:
+        for handle in driver.window_handles:
+            if handle != window_before:
+                paypal_window_handle = handle
+                break
+
+    driver.switch_to.window(paypal_window_handle)
     wait = WebDriverWait(driver, 30)
-    login_btn = driver.find_element_by_id('btnLogin')
+    login_btn = wait.until(ec.visibility_of_element_located(
+        (By.ID, "btnLogin")))
+    email = driver.find_element_by_id('email')
+    email.clear()
+    email.send_keys('chrlmoonstar@gmail.com')
+    password = driver.find_element_by_id('password').send_keys('shddkshdvkr113')
     login_btn.click()
+    driver.switch_to.window(window_before)
+
+    return True
+
+
+
