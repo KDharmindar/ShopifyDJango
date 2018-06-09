@@ -12,7 +12,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from django.core import serializers
 from API.models import *
-from API.serializers import ShopifySerializer
+from API.serializers import *
 import json
 
 
@@ -204,6 +204,10 @@ class Createtask(APIView):
             return Response({
                 'message': 'Unauthorized request'
             }, status=status.HTTP_401_UNAUTHORIZED)
+    def get(self,request):
+        queryset = Task.objects.all()
+        serializer = TaskSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 class Savegmail(APIView):
     def post(self, request, format=None):
@@ -232,6 +236,10 @@ class Savegmail(APIView):
             return Response({
                 'message': 'Unauthorized request'
             }, status=status.HTTP_401_UNAUTHORIZED)
+    def get(self,request):
+        queryset = GmailAccount.objects.all()
+        serializer = GmailAccountSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 class Proxy(APIView):
     def post(self, request, format=None):
@@ -263,8 +271,10 @@ class Proxy(APIView):
         queryset = Proxies.objects.all()
         # data = [obj.as_dict() for obj in self.get_queryset()]
         # res = [{'port':obj.port, 'ip':obj.ip} for obj in queryset]
-        res=[obj.ip+":"+obj.port for obj in queryset]
-        return HttpResponse(json.dumps(res), content_type='application/json')
+        # res=[obj.ip+":"+obj.port for obj in queryset]
+        # return HttpResponse(json.dumps(res), content_type='application/json')
+        serializer = ProxySerializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 class ShopifyURL(APIView):
