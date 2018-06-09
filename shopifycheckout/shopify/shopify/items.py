@@ -8,8 +8,6 @@
 from scrapy import Item, Field
 from scrapy.contrib.loader import ItemLoader
 from scrapy.loader.processors import TakeFirst, Identity, MapCompose
-4
-
 
 
 class ShopifyPrice(Item):
@@ -69,10 +67,18 @@ class ShopifyItemLoader(ItemLoader):
     default_output_processor = Identity()
 
 
+class ProductLink(Item):
+    id = Field()
+    url = Field()
+
+
 class KithItem(ShopifyItem):
     pass
 
+
 """ processors  """
+
+
 def cents_to_dollars(value):
     if isinstance(value, int):
         return float(value)/100

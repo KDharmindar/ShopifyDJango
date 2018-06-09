@@ -34,8 +34,10 @@ class ProxyConfig():
                 return c
             upto += w
 
+
 def get_random_positive_float_number():
     return round(random.uniform(0.01, 100.00), 2)
+
 
 def is_empty(x, y=None):
     if x:
@@ -43,16 +45,20 @@ def is_empty(x, y=None):
     else:
         return y
 
+
 def validate_url(url):
     if not re.findall(r"^http(s)?://", url):
         url = "http://" + url
     return url
 
+
 def is_valid_url(url):
     return bool(re.findall(r"^http(s)?://", url))
 
+
 def replace_http_with_https(url):
     return re.sub('^http://', 'https://', url)
+
 
 def extract_first(selector_list, default=None):
     for x in selector_list:
@@ -61,8 +67,9 @@ def extract_first(selector_list, default=None):
         return default
 
 
-
 def urlEncodeNonAscii(b):
     return re.sub('[\x80-\xFF]', lambda c: '%%%02x' % ord(c.group(0)), b)
 
 
+def _strip(param):
+    return str(param).strip(' \t\n\r')

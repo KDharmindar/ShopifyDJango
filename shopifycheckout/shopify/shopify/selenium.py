@@ -8,6 +8,7 @@ import pickle
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException, StaleElementReferenceException, WebDriverException, NoSuchElementException
 from pyvirtualdisplay import Display
+from .items import ProductLink
 from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
@@ -25,7 +26,7 @@ from selenium.webdriver.common.keys import Keys
 """
 number of seconds used to wait the web page's loading.
 """
-WAIT_TIMEOUT = 10
+WAIT_TIMEOUT = 15
 
 """
 number of seconds used to wait the web page's loading.
@@ -126,7 +127,6 @@ def init_chromium():
                               chrome_options=options)
     driver.implicitly_wait(200)
     driver.maximize_window()
-
     return driver
 
 
@@ -135,7 +135,6 @@ def _init_firefox():
     driver = webdriver.Firefox(firefox_binary=binary)
     driver.implicitly_wait(200)
     driver.maximize_window()
-
     return driver
 
 
@@ -154,7 +153,6 @@ def marionette_driver(**kwargs):
 
     profile = webdriver.FirefoxProfile(profile_directory=ffProfilePath)
 
-    # profile = webdriver.FirefoxProfile()
     if proxy_ip and proxy_port:
         print('setting proxy')
         profile.set_preference('network.proxy.socks_port', int(proxy_port))
@@ -166,25 +164,22 @@ def marionette_driver(**kwargs):
 
     firefox_capabilities = DesiredCapabilities.FIREFOX
     firefox_capabilities['marionette'] = True
-    # firefox_capabilities['binary'] = 'geckodriver'
-    #driver = webdriver.Firefox(capabilities=firefox_capabilities)
     firefox_capabilities['handleAlerts'] = True
     firefox_capabilities['acceptSslCerts'] = True
     firefox_capabilities['acceptInsecureCerts'] = True
     firefox_capabilities['javascriptEnabled'] = True
 
-    # cap = {'platform': 'ANY', 'browserName': 'firefox', 'version': '', 'marionette': True, 'javascriptEnabled': True}
     driver = webdriver.Firefox(options=options, firefox_profile=profile,
                                capabilities=firefox_capabilities)
-
-    #driver = webdriver.Firefox(options=options,
-    #                        capabilities=firefox_capabilities)
     if 'loadsession' in kwargs:
         load_session(driver, kwargs.get('email'))
 
     return driver
 
+
 """ load session with account email info """
+
+
 def load_session(driver, email="1", openUrl=""):
     storefile = get_sesssion_file(email)
     print('reading cookie:', storefile)
@@ -195,7 +190,9 @@ def load_session(driver, email="1", openUrl=""):
     except Exception as err:
         print('error:', err)
 
+
 """ get session file with account email info """
+
 
 def get_sesssion_file(email):
     dir_ = os.path.dirname(__file__)
@@ -205,7 +202,9 @@ def get_sesssion_file(email):
 
     return os.path.join(_COOKIE_FILE, email)
 
+
 """ store session file with account email info """
+
 
 def store_session(driver, email='1'):
     storefile = get_sesssion_file(email)
@@ -216,6 +215,7 @@ def store_session(driver, email='1'):
 def get_search_input(driver):
     return driver.find_element_by_id("search_input")
 
+
 def resolve_cookie(driver):
     try:
         appifyCookie = driver.find_element_by_id('appifyCookie')
@@ -225,29 +225,85 @@ def resolve_cookie(driver):
     return driver
 
 
-
 def search_product_by_keyword(driver, keyword):
     driver = resolve_cookie(driver)
     element = get_search_input(driver)
-    element.send_keys(keyword + Keys.DOWN)
-    wait = WebDriverWait(driver, IDLE_INTERVAL_IN_SECONDS)
-    input_click_button = driver.find_element_by_class_name("ksplash-header-search-inner")
-    # element.click()
-    veiw_all_link_button = wait.until(ec.visibility_of_element_located(
+    element.click()
+    element.send_keys(keyword)
+    driver.implicitly_wait(10)
+    wait = WebDriverWait(driver, 30)
+    with open('shopify/javascript/search_input.js') as f:
+        contents = f.read()
+    driver.execute_script(contents)
+    view_all_link_button = wait.until(ec.visibility_of_element_located(
         (By.CSS_SELECTOR, "li.snize-view-all-link")))
     try:
+        driver.execute_script(contents)
         view_all_link_button.click()
     except Exception as e:
         print('error:', e)
+    print('--------------------1-------------------')
     return driver
+
+
+def get_product_info(driver):
+    ul = driver.find_element_by_class_name('snize-search-results-content')
+    lis = ul.find_elements_by_class_name('snize-product')
+    product_urls = []
+    for li in lis:
+        product_link = li.find_element_by_class_name('snize-view-link')
+        url = product_link.get_attribute('href')
+        # productLink = ProductLink(url=url)
+        product_urls.append({'url': url})
+        # yield productLink
+    return product_urls
+
+
+def add_cart(driver, url, **kwargs):
+    driver.get(url)
+    is_available = False
+    wait = WebDriverWait(driver, 30)
+    try:
+        buy_now_button = wait.until(ec.visibility_of_element_located(
+            (By.CSS_SELECTOR, "button#AddToCart")))
+        buy_now_button.click()
+        is_available = True
+    except Exception as e:
+        print('error:', e)
+    return is_available
+
+
+def go_to_checkout(driver, **kwargs):
+    with open('shopify/javascript/open_cart.js') as f:
+        open_cart_script = f.read()
+    driver.execute_script(open_cart_script)
+    print(open_cart_script)
+    with open('shopify/javascript/scroll_open_cart.js') as f:
+        scroll_cart = f.read()
+    driver.execute_script(scroll_cart)
+    print(scroll_cart)
+    driver.implicitly_wait(10)
+    with open('shopify/javascript/click_checkout_button.js') as f:
+        click_script_cart_button = f.read()
+    driver.execute_script(click_script_cart_button)
+    print(click_script_cart_button)
+    driver.implicitly_wait(10)
+    wait = WebDriverWait(driver, 30)
+    try:
+        buy_now_button = wait.until(ec.visibility_of_element_located(
+            (By.CSS_SELECTOR, "button.cart-checkout")))
+        buy_now_button.click()
+    except Exception as e:
+        print('error:', e)
+
 
 class SeleniumSpiderMixin:
     def __init__(self, selenium_hostname=None, **kwargs):
         if selenium_hostname is None:
             selenium_hostname = SELENIUM_HOSTNAME
-
         self.driver = marionette_driver(headless=False)
         super().__init__(**kwargs)
 
     def closed(self, reason):
+        pass
         self.driver.close()
