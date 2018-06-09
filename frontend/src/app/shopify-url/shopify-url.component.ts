@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ShopifyurlService } from '../service/shopifyurl.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-shopify-url',
@@ -10,13 +11,13 @@ import { Angular2Csv } from 'angular2-csv/Angular2-csv';
   styleUrls: ['./shopify-url.component.css']
 })
 export class ShopifyURLComponent implements OnInit {
+  // const Swal = require('sweetalert2');
 	shopify_urls:any;
   constructor(private fb:FormBuilder, private shopifyurlService: ShopifyurlService, private router: Router) {
   	this.shopify_urls = fb.group({
       shopify_urls:['']
-    })
+    });
   }
-
   ngOnInit() {
   }
 
@@ -89,7 +90,7 @@ export class ShopifyURLComponent implements OnInit {
 	                    if ( data['stat'] === 'success' ){
 	                      //save data succesfully alert
 	                      // alert("Shopify URLs are saved.");
-                        swal("Nice!", "Shopify URLs are saved.", "success");
+                        Swal("Nice!", "Shopify URLs are saved.", "success");
 	                      // this.gmail_account.reset();
 	                    }
 	                    this.router.navigate(['/home/shopify-url']);
@@ -101,19 +102,21 @@ export class ShopifyURLComponent implements OnInit {
 	  	else
 	  	{
 	  		// alert( "Please input Correct Data." );
-        swal("Wrong!", "Please input Correct Data.", "error");
+        Swal("Wrong!", "Please input Correct Data.", "error");
 	  	}	
   	}
   	else
   	{
   		// alert( "Please Input Data first." );
-      swal("Wrong!", "Please Input Data first.", "error");
+      Swal("Wrong!", "Please Input Data first.", "error");
+
   	}
   	
   }
 
   clear_url(){
   	this.shopify_urls.reset();
+    Swal("Clear!", "All data is cleared.", "success");
   }
 
   export_url(){
@@ -125,13 +128,13 @@ export class ShopifyURLComponent implements OnInit {
 	  	else
 	  	{
 	  		// alert( "Please input Correct Data." );
-        swal("Wrong!", "Please input Correct Data.", "error");
+        Swal("Wrong!", "Please input Correct Data.", "error");
 	  	}	
   	}
   	else
   	{
   		// alert( "Please Input Data first." );
-      swal("Wrong!", "Please Input Data first.", "error");
+      Swal("Wrong!", "Please Input Data first.", "error");
   	}
   }
 
@@ -164,7 +167,7 @@ export class ShopifyURLComponent implements OnInit {
 						else
 						{
 							// alert("No Match CSV Data Style");
-              swal("Wrong!", "No Match CSV Data Style.", "error");
+              Swal("Wrong!", "No Match CSV Data Style.", "error");
 							return false;
 						}
 					}
@@ -173,7 +176,7 @@ export class ShopifyURLComponent implements OnInit {
 			if ( exist_flag == 0 )
 			{
 				// alert("No Match CSV Data Style");
-        swal("Wrong!", "No Match CSV Data Style.", "error");
+        Swal("Wrong!", "No Match CSV Data Style.", "error");
 				return false;
 			}
 			else

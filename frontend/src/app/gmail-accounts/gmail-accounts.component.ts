@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { GmailaccountService } from '../service/gmailaccount.service';;
 import { Router, ActivatedRoute } from '@angular/router';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-gmail-accounts',
@@ -92,7 +93,7 @@ export class GmailAccountsComponent implements OnInit {
 	                    if (data['stat'] === 'success'){
 	                      //save data succesfully alert
 	                      // alert("Gmail account lists are saved.");
-                        swal("Nice!", "Gmail account lists are saved!", "success");
+                        Swal("Nice!", "Gmail account lists are saved!", "success");
 	                      // this.gmail_account.reset();
 	                    }
 	                    this.router.navigate(['/home/gmail-accounts']);
@@ -104,19 +105,20 @@ export class GmailAccountsComponent implements OnInit {
 	  	else
 	  	{
 	  		// alert( "Please input Correct Data." );
-        swal("Wrong!", "Please input Correct Data.", "error");
+        Swal("Wrong!", "Please input Correct Data.", "error");
 	  	}	
   	}
   	else
   	{
   		// alert( "Please Input Data first." );
-      swal("Wrong!", "Please Input Data first.", "error");
+      Swal("Wrong!", "Please Input Data first.", "error");
   	}
   	
   }
 
   clear_session(){
   	this.gmail_account.reset();
+    Swal("Clear!", "All data is cleared.", "success");
   }
 
   export_gmail(){
@@ -128,13 +130,13 @@ export class GmailAccountsComponent implements OnInit {
 	  	else
 	  	{
 	  		// alert( "Please input Correct Data." );
-        swal("Wrong!", "Please input Correct Data.", "error");
+        Swal("Wrong!", "Please input Correct Data.", "error");
 	  	}	
   	}
   	else
   	{
   		// alert( "Please Input Data first." );
-      swal("Wrong!", "Please Input Data first.", "error");
+      Swal("Wrong!", "Please Input Data first.", "error");
   	}
   	
   }
@@ -168,7 +170,7 @@ export class GmailAccountsComponent implements OnInit {
 						else
 						{
 							// alert("No Match CSV Data Style");
-              swal("Wrong!", "No Match CSV Data Style.", "error");
+              Swal("Wrong!", "No Match CSV Data Style.", "error");
 							return false;
 						}
 					}
@@ -177,7 +179,7 @@ export class GmailAccountsComponent implements OnInit {
 			if ( exist_flag == 0 )
 			{
 				// alert("No Match CSV Data Style");
-        swal("Wrong!", "No Match CSV Data Style.", "error");
+        Swal("Wrong!", "No Match CSV Data Style.", "error");
 				return false;
 			}
 			else
