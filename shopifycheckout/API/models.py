@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
 
-	user 				= models.OneToOneField(User,on_delete=models.CASCADE)
-	phone_number 		= models.CharField(max_length=15,blank=True)
-	profile_image 		= models.ImageField(upload_to='Profile', blank=True, null=True)
+	user = models.OneToOneField(User,on_delete=models.CASCADE)
+	phone_number = models.CharField(max_length=15,blank=True)
+	profile_image = models.ImageField(upload_to='Profile', blank=True, null=True)
 
 	# card_holder_name = models.CharField(max_length=100,blank=True)
 	# cc_number = models.CharField(max_length=16,blank=True)
@@ -18,43 +18,73 @@ class Profile(models.Model):
 
 
 class Checkout(models.Model):
-	first_name 			= models.CharField(max_length=50, blank=True)
-	last_name 			= models.CharField(max_length=50, blank=True)
-	address1 			= models.TextField(max_length=500, blank=True)
-	address2 			= models.TextField(max_length=500, blank=True)
-	city 				= models.CharField(max_length=50, blank=True)
-	state 				= models.CharField(max_length=50, blank=True)
-	zipcode 			= models.CharField(max_length=20, blank=True)
-	email 				= models.CharField(max_length=50, blank=True)
-	phone 				= models.CharField(max_length=50, blank=True)
-	card_num 			= models.CharField(max_length=16,blank=True)
-	card_cvv 			= models.CharField(max_length=16,blank=True)
-	# card_expired_month 	= models.CharField(max_length=4,blank=True)
-	card_expired_date 	= models.CharField(max_length=200,blank=True)
+	first_name = models.CharField(max_length=50, blank=True)
+	last_name = models.CharField(max_length=50, blank=True)
+	address1 = models.TextField(max_length=500, blank=True)
+	address2 = models.TextField(max_length=500, blank=True)
+	city = models.CharField(max_length=50, blank=True)
+	state = models.CharField(max_length=50, blank=True)
+	zipcode = models.CharField(max_length=20, blank=True)
+	email = models.CharField(max_length=50, blank=True)
+	phone = models.CharField(max_length=50, blank=True)
+	card_num = models.CharField(max_length=16,blank=True)
+	card_cvv = models.CharField(max_length=16,blank=True)
+	# card_expired_month = models.CharField(max_length=4,blank=True)
+	card_expired_date = models.CharField(max_length=200,blank=True)
 	# paypal_use = models.CharField(max_length=2,blank=True)
-	paypal_use 			= models.CharField(max_length=5,blank=True)
-	paypal_email 		= models.CharField(max_length=50,blank=True)
-	paypal_pw 			= models.CharField(max_length=50,blank=True)
+	paypal_use = models.CharField(max_length=5,blank=True)
+	paypal_email = models.CharField(max_length=50,blank=True)
+	paypal_pw = models.CharField(max_length=50,blank=True)
+
+
+
+class BotTaskType:
+    PINVERIFY = 'pinverify'
+    SEARCH = 'search'
+
+    task_types = (
+        (PINVERIFY, PINVERIFY),
+        (SEARCH, SEARCH),
+    )
+
+
+class BotTaskStatus:
+    QUEUED = 'Queued'
+    RUNNING = 'Running'
+    PIN_REQUIRED = 'Pin Required'
+    PIN_CHECKING = 'Pin Checking'
+    PIN_INVALID = 'Pin Invalid'
+    ERROR = 'Error'
+    DONE = 'Done'
+    statuses = (
+        (QUEUED, QUEUED),
+        (RUNNING, RUNNING),
+        (PIN_REQUIRED, PIN_REQUIRED),
+        (PIN_CHECKING, PIN_CHECKING),
+        (PIN_INVALID, PIN_INVALID),
+        (ERROR, ERROR),
+        (DONE, DONE),
+    )
 
 
 class Task(models.Model):
-	site 				= models.CharField(max_length=50, blank=True)
-	type 				= models.CharField(max_length=50, blank=True)
-	size 				= models.TextField(max_length=500, blank=True)
-	billing_profile 	= models.TextField(max_length=500, blank=True)
-	proxy 				= models.TextField(max_length=500, blank=True)
-	checkout_type 		= models.CharField(max_length=50, blank=True)
-	quantity 			= models.CharField(max_length=50, blank=True)
+	site = models.CharField(max_length=50, blank=True)
+	type = models.CharField(max_length=50, blank=True)
+	size = models.TextField(max_length=500, blank=True)
+	billing_profile = models.TextField(max_length=500, blank=True)
+	proxy = models.TextField(max_length=500, blank=True)
+	checkout_type = models.CharField(max_length=50, blank=True)
+	quantity = models.CharField(max_length=50, blank=True)
+	status = models.CharField(max_length=20, choices=BotTaskStatus.statuses,
+                              default=BotTaskStatus.QUEUED)
 
 class GmailAccount(models.Model):
-	email				= models.CharField(max_length=50, blank=True)
-	password			= models.CharField(max_length=50, blank=True)
+	email = models.CharField(max_length=50, blank=True)
+	password= models.CharField(max_length=50, blank=True)
 
 class Proxies(models.Model):
-	ip 					= models.CharField(max_length=50, blank=True)
-	port 				= models.CharField(max_length=50, blank=True)
+	ip = models.CharField(max_length=50, blank=True)
+	port = models.CharField(max_length=50, blank=True)
 
 class ShopifyUrl(models.Model):
-	url 					= models.CharField(max_length=500, blank=True)
-
-
+	url = models.CharField(max_length=500, blank=True)

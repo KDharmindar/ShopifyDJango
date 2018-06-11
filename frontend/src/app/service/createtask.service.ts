@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map'
 
 @Injectable()
 export class CreatetaskService {
-	private url = 'http://localhost:8000/api/v1/createtask';
+	private url = 'http://localhost:8000/api/v1/createtask/';
 	constructor(private httpclient: Http) { }
 
     getHeader() {

@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map'
 
 @Injectable()
 export class ProxiesService {
-	private url = 'http://localhost:8000/api/v1/proxies';
+	private url = 'http://localhost:8000/api/v1/proxies/';
 	constructor(private httpclient: Http) { }
 
     getHeader() {

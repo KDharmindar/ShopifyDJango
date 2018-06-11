@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map'
 
 @Injectable()
 export class CheckoutService {
-	private url = 'http://localhost:8000/api/v1/billings';
+	private url = 'http://localhost:8000/api/v1/billings/';
 	constructor(private httpclient: Http) { }
 
     getHeader() {
