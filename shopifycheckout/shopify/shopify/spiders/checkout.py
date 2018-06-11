@@ -6,7 +6,7 @@ from shopify.utils import is_empty, _strip
 from shopify.components.gateway import get_profile
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
-from shopify.components.Parse import search_product_by_keyword, get_product_info, add_cart, go_to_checkout
+from shopify.components.logic import search_product_by_keyword, get_product_info, add_cart, go_to_checkout
 from shopify.selenium import SeleniumSpiderMixin
 
 IDLE_INTERVAL_IN_SECONDS = 5

@@ -49,21 +49,31 @@ class BotTaskType:
 
 
 class BotTaskStatus:
-    QUEUED = 'Queued'
-    RUNNING = 'Running'
-    PIN_REQUIRED = 'Pin Required'
-    PIN_CHECKING = 'Pin Checking'
-    PIN_INVALID = 'Pin Invalid'
-    ERROR = 'Error'
-    DONE = 'Done'
-    statuses = (
-        (QUEUED, QUEUED),
-        (RUNNING, RUNNING),
+	QUEUED = 'Queued'
+	RUNNING = 'Running'
+	NOSEARCHRESULT = 'NotResult'
+	RESEARCH = 'ReSearching'
+	NOTAVAILABLE = 'Not Available'
+	CHECKOUTING = 'Checkouting'
+	PIN_REQUIRED = 'Pin Required'
+	PIN_CHECKING = 'Pin Checking'
+	PIN_INVALID = 'Pin Invalid'
+	ERROR = 'Error'
+	DONE = 'Done'
+	CAPTCHA_SOLVING = 'Captcha solving'
+	statuses = (
+	    (QUEUED, QUEUED),
+		(RUNNING, RUNNING),
+        (RESEARCH, RESEARCH),
+		(NOSEARCHRESULT, NOSEARCHRESULT),
+		(NOTAVAILABLE, NOTAVAILABLE),
+		(CHECKOUTING, CHECKOUTING),
         (PIN_REQUIRED, PIN_REQUIRED),
         (PIN_CHECKING, PIN_CHECKING),
-        (PIN_INVALID, PIN_INVALID),
+		(PIN_INVALID, PIN_INVALID),
+        (CAPTCHA_SOLVING, CAPTCHA_SOLVING),
         (ERROR, ERROR),
-        (DONE, DONE),
+        (DONE, DONE)
     )
 
 
@@ -75,8 +85,11 @@ class Task(models.Model):
 	proxy = models.TextField(max_length=500, blank=True)
 	checkout_type = models.CharField(max_length=50, blank=True)
 	quantity = models.CharField(max_length=50, blank=True)
+	completed_date = models.DateTimeField(blank=True, null=True)
+	keyword = models.CharField(max_length=50, blank=True)
 	status = models.CharField(max_length=20, choices=BotTaskStatus.statuses,
                               default=BotTaskStatus.QUEUED)
+
 
 class GmailAccount(models.Model):
 	email = models.CharField(max_length=50, blank=True)

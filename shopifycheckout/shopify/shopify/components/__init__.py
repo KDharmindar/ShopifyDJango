@@ -6,7 +6,6 @@ import uuid
 from abc import ABC, abstractmethod
 from shopify.exceptions import InitializationError, ConfigError, ConnectionError, IOError
 
-
 class _status:
     code = -1
     msg = ''
@@ -64,38 +63,6 @@ class Component(ABC):
     def run(self):
         self.load()
         self.connect()
-
-    #   status codes for possible states    """
-    #   Errors :                            """
-    #   code: -1: Undefined, Component hasn't been initialized
-    #         -2: Connection failure
-    #         -3: Critical failure
-    #   Non-errors :
-    #   code:  0: status OK. This case message field can contain any additional info
-    #          1: working status, important message/s
-    #          2: Handled critical failure, restart required
-    #
-
-    # @monitor
-    # @abstractmethod
-    # def read(self):
-    #     pass
-    #
-    # @monitor
-    # @abstractmethod
-    # def write(self):
-    #     pass
-
-    # TODO add maintanance methods
-    # @monitor
-    # @abstractmethod
-    # def reboot(self):
-    #     pass
-    #
-    # @monitor
-    # @abstractmethod
-    # def halt(self):
-    #     pass
 
     @property
     def status(self):
