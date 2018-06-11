@@ -20,6 +20,27 @@ export class ProxiesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.proxiesService.proxiesLoad()
+              .subscribe(
+                  res_data => {
+                    //clear all forms
+                      let data=res_data.json();
+                      let strRes = "";
+                      if ( data.length > 0 ){
+                        for ( let i = 0; i < data.length; i++ ){
+                          strRes = strRes + data[i].ip + ":" + data[i].port;
+                          if ( i < ( data.length - 1 ) ){
+                            strRes = strRes + '\n';
+                          }
+                        }
+                        this.proxies.value["proxies_list"] = strRes;
+                        this.proxies.patchValue(this.proxies.value);
+                      }
+                      this.router.navigate(['/home/proxies']);
+                  },
+                  error => {
+                    //alert errors
+          });
   }
 
 

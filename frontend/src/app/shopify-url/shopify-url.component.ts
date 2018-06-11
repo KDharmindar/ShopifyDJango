@@ -19,6 +19,27 @@ export class ShopifyURLComponent implements OnInit {
     });
   }
   ngOnInit() {
+    this.shopifyurlService.shopifyURLLoad()
+              .subscribe(
+                  res_data => {
+                    //clear all forms
+                      let data=res_data.json();
+                      let strRes = "";
+                      if ( data.length > 0 ){
+                        for ( let i = 0; i < data.length; i++ ){
+                          strRes = strRes + data[i].url ;
+                          if ( i < ( data.length - 1 ) ){
+                            strRes = strRes + '\n';
+                          }
+                        }
+                        this.shopify_urls.value["shopify_urls"] = strRes;
+                        this.shopify_urls.patchValue(this.shopify_urls.value);
+                      }
+                      this.router.navigate(['/home/shopify-url']);
+                  },
+                  error => {
+                    //alert errors
+          });
   }
 
   // get email and password and validate
