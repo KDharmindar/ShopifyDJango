@@ -14,7 +14,7 @@ def run_spider():
     if randint(0, 9) > 5:
         spider_name = 'search'
     else:
-        spider_name = 'login'
+        spider_name = 'search'
     d = runner.crawl(spider_name)
     d.addBoth(lambda _: l.start(timeout, False))
 

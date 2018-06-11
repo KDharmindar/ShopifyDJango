@@ -33,6 +33,7 @@ def get_cart_list_info(driver):
 
 
 def set_checkout_info(driver, url=None, **kwargs):
+    billing_info = kwargs.get('checkout', None)
     check_out_email = driver.find_element_by_id('checkout_email')
     first_name = driver.find_element_by_id('checkout_shipping_address_first_name')
     last_name = driver.find_element_by_id('checkout_shipping_address_last_name')
@@ -42,16 +43,14 @@ def set_checkout_info(driver, url=None, **kwargs):
     post_code = driver.find_element_by_id('checkout_shipping_address_zip')
     phone_number = driver.find_element_by_id('checkout_shipping_address_phone')
     continue_button = driver.find_element_by_class_name('step__footer__continue-btn')
-    first_name.send_keys('loveuncg')
-    last_name.send_keys('loveuncg')
-    address1.send_keys('loveuncg')
-    address2.send_keys('loveuncg')
-    phone_number.send_keys('1564324658')
-    post_code.send_keys('110000')
-    city.send_keys('liao ning')
-    city.send_keys('liao ning')
-
-    check_out_email.send_keys('loveun1988@outlook.com')
+    first_name.send_keys(billing_info.first_name)
+    last_name.send_keys(billing_info.last_name)
+    address1.send_keys(billing_info.address1)
+    address2.send_keys(billing_info.address2)
+    phone_number.send_keys(billing_info.phone)
+    post_code.send_keys(billing_info.zipcode)
+    city.send_keys(billing_info.city)
+    check_out_email.send_keys(billing_info.email)
     continue_button.click()
     print('-------loading-------')
     wait = WebDriverWait(driver, 30)
@@ -67,12 +66,13 @@ def set_checkout_info(driver, url=None, **kwargs):
     next_button = wait.until(ec.visibility_of_element_located(
         (By.CSS_SELECTOR, "button.step__footer__continue-btn")))
     next_button.click()
-    check_out_with_paypal(driver, window_before)
+    check_out_with_paypal(driver, window_before, checkout=billing_info)
     time.sleep(20)
     return True
 
 
-def check_out_with_paypal(driver, window_before):
+def check_out_with_paypal(driver, window_before, **kwargs):
+    billing_info = kwargs.get('checkout', None)
     paypal_window_handle = None
     while not paypal_window_handle:
         for handle in driver.window_handles:
@@ -86,11 +86,10 @@ def check_out_with_paypal(driver, window_before):
         (By.ID, "btnLogin")))
     email = driver.find_element_by_id('email')
     email.clear()
-    email.send_keys('chrlmoonstar@gmail.com')
-    password = driver.find_element_by_id('password').send_keys('shddkshdvkr113')
+    email.send_keys(billing_info.paypal_email)
+    password = driver.find_element_by_id('password').send_keys(billing_info.paypal_pw)
     login_btn.click()
     driver.switch_to.window(window_before)
-
     return True
 
 

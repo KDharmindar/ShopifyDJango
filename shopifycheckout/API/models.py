@@ -3,11 +3,9 @@ from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
-
 	user = models.OneToOneField(User,on_delete=models.CASCADE)
 	phone_number = models.CharField(max_length=15,blank=True)
 	profile_image = models.ImageField(upload_to='Profile', blank=True, null=True)
-
 	# card_holder_name = models.CharField(max_length=100,blank=True)
 	# cc_number = models.CharField(max_length=16,blank=True)
 	# expiray_month = models.CharField(max_length=3,blank=True)
@@ -35,7 +33,6 @@ class Checkout(models.Model):
 	paypal_use = models.CharField(max_length=5,blank=True)
 	paypal_email = models.CharField(max_length=50,blank=True)
 	paypal_pw = models.CharField(max_length=50,blank=True)
-
 
 
 class BotTaskType:
@@ -82,6 +79,8 @@ class Task(models.Model):
 	type = models.CharField(max_length=50, blank=True)
 	size = models.TextField(max_length=500, blank=True)
 	billing_profile = models.TextField(max_length=500, blank=True)
+	checkout = models.ForeignKey(Checkout, related_name='task',
+							  on_delete=models.CASCADE, default=1)
 	proxy = models.TextField(max_length=500, blank=True)
 	checkout_type = models.CharField(max_length=50, blank=True)
 	quantity = models.CharField(max_length=50, blank=True)
@@ -95,9 +94,11 @@ class GmailAccount(models.Model):
 	email = models.CharField(max_length=50, blank=True)
 	password= models.CharField(max_length=50, blank=True)
 
+
 class Proxies(models.Model):
 	ip = models.CharField(max_length=50, blank=True)
 	port = models.CharField(max_length=50, blank=True)
+
 
 class ShopifyUrl(models.Model):
 	url = models.CharField(max_length=500, blank=True)
