@@ -19,9 +19,24 @@ export class ProxiesService {
 	proxies(proxies: any){
         const requestOptions = new RequestOptions({
           headers: this.getHeader()
-        });  
+        });
 		return this.httpclient.
 			post(this.url, JSON.stringify(proxies), requestOptions)
+		    .map(user => {
+		        // login successful if there's a jwt token in the response
+		        if (user) {
+		            // store user details and jwt token in local storage to keep user logged in between page refreshes
+		            localStorage.setItem('proxies', JSON.stringify(user));
+		        }
+		        return user;
+	    });
+	}
+	proxiesLoad(){
+        const requestOptions = new RequestOptions({
+          headers: this.getHeader()
+        });  
+		return this.httpclient.
+			get(this.url)
 		    .map(user => {
 		        // login successful if there's a jwt token in the response
 		        if (user) {

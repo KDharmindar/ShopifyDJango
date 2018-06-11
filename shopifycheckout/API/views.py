@@ -305,7 +305,6 @@ class ShopifyURL(APIView):
         queryset = ShopifyUrl.objects.all()
         # res=[obj.url for obj in queryset]
         # return HttpResponse(json.dumps(res), content_type='application/json')
-
         serializer = ShopifySerializer(queryset, many=True)
         return Response(serializer.data)
 

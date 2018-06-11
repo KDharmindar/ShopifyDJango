@@ -45,7 +45,7 @@ const appRoutes : Routes = [
 		  {path: 'proxies', component: ProxiesComponent}, 
 		  {path: 'settings', component: SettingsComponent}, 
 		  {path: 'gmail-accounts', component: GmailAccountsComponent}, 
-		  {path: 'shopify-url', component: ShopifyURLComponent},
+		  {path: 'shopify-urls', component: ShopifyURLComponent},
 		  {path: '404', component: Error404Component}, 
 		  {path: '', redirectTo: '/home/dashboard', pathMatch: 'full'},
 		  {path: '**', redirectTo: '/404'}
