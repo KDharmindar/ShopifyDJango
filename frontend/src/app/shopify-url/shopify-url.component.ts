@@ -130,7 +130,6 @@ export class ShopifyURLComponent implements OnInit {
   	{
   		// alert( "Please Input Data first." );
       Swal("Wrong!", "Please Input Data first.", "error");
-
   	}
   	
   }

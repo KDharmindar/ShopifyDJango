@@ -8,6 +8,23 @@ import 'rxjs/add/operator/map'
 export class ProxiesService {
 	private url = 'http://localhost:8000/api/v1/proxies';
 	constructor(private httpclient: Http) { }
+	
+	getData1(){
+		const requestOptions = new RequestOptions({
+          headers: this.getHeader()
+        });  
+		return this.httpclient.
+			get(this.url)
+		    .map(user => {
+		        // login successful if there's a jwt token in the response
+		        if (user) {
+		            // store user details and jwt token in local storage to keep user logged in between page refreshes
+		            localStorage.setItem('proxies', JSON.stringify(user));
+		        }
+		        let res = JSON.stringify(user);
+		        return res.slice();
+	    });
+	}
 
     getHeader() {
         const headers = new Headers();
@@ -46,4 +63,5 @@ export class ProxiesService {
 		        return user;
 	    });
 	}
+	
 }

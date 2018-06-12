@@ -10656,3 +10656,10 @@ pre {
 .switch label input[type=checkbox]:checked+.lever.switch-col-white:after {
     background-color: #ffffff;
 }
+
+mat-list {
+    height:300px;
+    flex-grow: 1;
+    /*border: 3px solid green;*/
+    overflow: auto;
+}

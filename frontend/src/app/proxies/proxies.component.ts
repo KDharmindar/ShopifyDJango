@@ -1,18 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ProxiesService } from '../service/proxies.service';;
 import { Router, ActivatedRoute } from '@angular/router';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import Swal from 'sweetalert2';
+import {MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
+import {SelectionModel} from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-proxies',
   templateUrl: './proxies.component.html',
-  styleUrls: ['./proxies.component.css']
+  styleUrls: ['./proxies.component.css'],
+  providers: [ProxiesService]
 })
 export class ProxiesComponent implements OnInit {
-
+  @ViewChild(MatSort)sort: MatSort;
+  @ViewChild(MatPaginator)paginator: MatPaginator;
+  displayedColumns1 = [
+    'select',
+    'ip',
+    'port',
+    'action'
+  ];
   proxies:any;
+  dataSource1:any;
+  selection:any;
+  tmp_data:any;
   constructor(private fb:FormBuilder, private proxiesService: ProxiesService, private router: Router) {
   	this.proxies = fb.group({
       proxies_list:['']
@@ -25,17 +38,16 @@ export class ProxiesComponent implements OnInit {
                   res_data => {
                     //clear all forms
                       let data=res_data.json();
-                      let strRes = "";
-                      if ( data.length > 0 ){
-                        for ( let i = 0; i < data.length; i++ ){
-                          strRes = strRes + data[i].ip + ":" + data[i].port;
-                          if ( i < ( data.length - 1 ) ){
-                            strRes = strRes + '\n';
-                          }
-                        }
-                        this.proxies.value["proxies_list"] = strRes;
-                        this.proxies.patchValue(this.proxies.value);
+                      this.tmp_data = data;
+                      for (let i = 0; i < this.tmp_data.length; i++){
+                        this.tmp_data[i]['action']=null;
                       }
+
+                      this.dataSource1 = new MatTableDataSource( this.tmp_data.slice() );
+                      this.selection = new SelectionModel(true, []);
+                      this.dataSource1.sort = this.sort;
+                      this.dataSource1.paginator = this.paginator;
+
                       this.router.navigate(['/home/proxies']);
                   },
                   error => {
@@ -43,6 +55,23 @@ export class ProxiesComponent implements OnInit {
           });
   }
 
+  ngAfterViewInit() {
+    // this.dataSource1.sort = this.sort;
+    // this.dataSource1.paginator = this.paginator;
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource1.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.dataSource1.data.forEach(row => this.selection.select(row));
+  }
 
   validate_ipaddress_port(str){
   	// if ":"'s count is 1 then
@@ -103,6 +132,7 @@ export class ProxiesComponent implements OnInit {
   		return res;
   	}
   }
+
   save_proxy(){
   	if ( this.proxies.value["proxies_list"] != "" ) {
   		let res = this.split_string( this.proxies.value["proxies_list"] );
@@ -135,7 +165,6 @@ export class ProxiesComponent implements OnInit {
   		// alert( "Please Input Data first." );
       Swal("Wrong!", "Please Input Data first.", "error");
   	}
-  	
   }
 
   delete_proxy(){
@@ -207,7 +236,8 @@ export class ProxiesComponent implements OnInit {
 				let suffix = "";
 				let res_text = "";
 				//create plain text by using json content
-				for ( var i = 0; i < res_import.length; i++ ) {
+				for ( var i = 0; i < res_import.length;
+         i++ ) {
 					suffix = "\n";
 					if ( i == ( res_import.length - 1 ) )
 					{
@@ -220,5 +250,18 @@ export class ProxiesComponent implements OnInit {
 			}
 		}
 	}
+}
+
+saveItemToTable(){
+    console.log("test_proxy");
+    if (this.proxies.value["proxies_list"] != ''){
+      this.tmp_data.push(this.validate_ipaddress_port(this.proxies.value["proxies_list"]))
+      this.dataSource1 = new MatTableDataSource( this.tmp_data.slice() );
+      this.selection = new SelectionModel(true, []);
+      this.dataSource1.sort = this.sort;
+      this.dataSource1.paginator = this.paginator;
+    } else {
+      Swal("Wrong!", "Please input Data.", "error");
+    }
   }
 }
