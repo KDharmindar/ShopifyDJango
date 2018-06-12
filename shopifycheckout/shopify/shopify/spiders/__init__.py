@@ -4,6 +4,8 @@ import re
 import json
 import os
 from urllib.parse import urljoin
+import time
+from selenium.common.exceptions import TimeoutException, StaleElementReferenceException, WebDriverException, NoSuchElementException
 
 from abc import ABC, ABCMeta, abstractmethod
 from shopify.components import CrawlerComponent, monitor
@@ -22,12 +24,6 @@ class ShopifySpider(CrawlerComponent, Spider):
         super(CrawlerComponent, self).__init__(*args, **kwargs)
         self.product_link = kwargs.get('product_link')
         self.headers = DEFAULT_REQUEST_HEADERS
-
-    # def start_requests(self):
-    #     pass
-    #     headers = self.headers.copy()
-    #     yield Request(self.product_link, callback=self._parse_product_page,
-    #                   headers=headers)
 
     @abstractmethod
     def _extract_json_info(self, response):
@@ -56,10 +52,6 @@ class ShopifySpider(CrawlerComponent, Spider):
 
         yield item
         return self._add_to_cart(response)
-
-    @abstractmethod
-    def _add_to_cart(self, response):
-        pass
 
     @abstractmethod
     def _checkout(self, response):

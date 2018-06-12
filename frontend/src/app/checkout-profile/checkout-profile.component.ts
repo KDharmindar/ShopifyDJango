@@ -56,7 +56,7 @@ export class CheckoutProfileComponent implements OnInit {
                       //save data succesfully alert
                       //alert("Checkout Profile Created.");
                       Swal("Nice!", "Checkout Profile Created!", "success");
-                      this.checkout.reset();
+                      // this.checkout.reset();
                     }
                     this.router.navigate(['/home/checkout-profile']);
                 },

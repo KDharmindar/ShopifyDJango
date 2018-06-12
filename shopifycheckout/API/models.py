@@ -3,7 +3,9 @@ from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
-
+	user = models.OneToOneField(User,on_delete=models.CASCADE)
+	phone_number = models.CharField(max_length=15,blank=True)
+	profile_image = models.ImageField(upload_to='Profile', blank=True, null=True)
 	user = models.OneToOneField(User,on_delete=models.CASCADE)
 	phone_number = models.CharField(max_length=15,blank=True)
 	profile_image = models.ImageField(upload_to='Profile', blank=True, null=True)
@@ -37,7 +39,6 @@ class Checkout(models.Model):
 	paypal_pw = models.CharField(max_length=50,blank=True)
 
 
-
 class BotTaskType:
     PINVERIFY = 'pinverify'
     SEARCH = 'search'
@@ -49,21 +50,31 @@ class BotTaskType:
 
 
 class BotTaskStatus:
-    QUEUED = 'Queued'
-    RUNNING = 'Running'
-    PIN_REQUIRED = 'Pin Required'
-    PIN_CHECKING = 'Pin Checking'
-    PIN_INVALID = 'Pin Invalid'
-    ERROR = 'Error'
-    DONE = 'Done'
-    statuses = (
-        (QUEUED, QUEUED),
-        (RUNNING, RUNNING),
+	QUEUED = 'Queued'
+	RUNNING = 'Running'
+	NOSEARCHRESULT = 'NotResult'
+	RESEARCH = 'ReSearching'
+	NOTAVAILABLE = 'Not Available'
+	CHECKOUTING = 'Checkouting'
+	PIN_REQUIRED = 'Pin Required'
+	PIN_CHECKING = 'Pin Checking'
+	PIN_INVALID = 'Pin Invalid'
+	ERROR = 'Error'
+	DONE = 'Done'
+	CAPTCHA_SOLVING = 'Captcha solving'
+	statuses = (
+	    (QUEUED, QUEUED),
+		(RUNNING, RUNNING),
+        (RESEARCH, RESEARCH),
+		(NOSEARCHRESULT, NOSEARCHRESULT),
+		(NOTAVAILABLE, NOTAVAILABLE),
+		(CHECKOUTING, CHECKOUTING),
         (PIN_REQUIRED, PIN_REQUIRED),
         (PIN_CHECKING, PIN_CHECKING),
-        (PIN_INVALID, PIN_INVALID),
+		(PIN_INVALID, PIN_INVALID),
+        (CAPTCHA_SOLVING, CAPTCHA_SOLVING),
         (ERROR, ERROR),
-        (DONE, DONE),
+        (DONE, DONE)
     )
 
 
@@ -72,19 +83,26 @@ class Task(models.Model):
 	type = models.CharField(max_length=50, blank=True)
 	size = models.TextField(max_length=500, blank=True)
 	billing_profile = models.TextField(max_length=500, blank=True)
+	checkout = models.ForeignKey(Checkout, related_name='task',
+							  on_delete=models.CASCADE, default=1)
 	proxy = models.TextField(max_length=500, blank=True)
 	checkout_type = models.CharField(max_length=50, blank=True)
 	quantity = models.CharField(max_length=50, blank=True)
+	completed_date = models.DateTimeField(blank=True, null=True)
+	keyword = models.CharField(max_length=50, blank=True)
 	status = models.CharField(max_length=20, choices=BotTaskStatus.statuses,
                               default=BotTaskStatus.QUEUED)
+
 
 class GmailAccount(models.Model):
 	email = models.CharField(max_length=50, blank=True)
 	password= models.CharField(max_length=50, blank=True)
 
+
 class Proxies(models.Model):
 	ip = models.CharField(max_length=50, blank=True)
 	port = models.CharField(max_length=50, blank=True)
+
 
 class ShopifyUrl(models.Model):
 	url = models.CharField(max_length=500, blank=True)

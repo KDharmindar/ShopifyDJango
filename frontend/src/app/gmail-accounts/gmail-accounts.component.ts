@@ -19,6 +19,27 @@ export class GmailAccountsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.gmailaccountService.gmailAccountLoad()
+              .subscribe(
+                  res_data => {
+                    //clear all forms
+                      let data=res_data.json();
+                      let strRes = "";
+                      if ( data.length > 0 ){
+                        for ( let i = 0; i < data.length; i++ ){
+                          strRes = strRes + data[i].email + ":" + data[i].password;
+                          if ( i < ( data.length - 1 ) ){
+                            strRes = strRes + '\n';
+                          }
+                        }
+                        this.gmail_account.value["gmail_list"] = strRes;
+                        this.gmail_account.patchValue(this.gmail_account.value);
+                      }
+                      this.router.navigate(['/home/gmail-accounts']);
+                  },
+                  error => {
+                    //alert errors
+          });
   }
 
   // get email and password and validate

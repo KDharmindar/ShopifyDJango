@@ -6,10 +6,8 @@
 # https://doc.scrapy.org/en/latest/topics/items.html
 
 from scrapy import Item, Field
-from scrapy.contrib.loader import ItemLoader
+from scrapy.loader import ItemLoader
 from scrapy.loader.processors import TakeFirst, Identity, MapCompose
-4
-
 
 
 class ShopifyPrice(Item):
@@ -64,15 +62,24 @@ class ShopifyItem(Item):
     images = Field()
     options = Field()
 
+
 class ShopifyItemLoader(ItemLoader):
     default_item_class = ShopifyItem
     default_output_processor = Identity()
 
 
+class ProductLink(Item):
+    id = Field()
+    url = Field()
+
+
 class KithItem(ShopifyItem):
     pass
 
+
 """ processors  """
+
+
 def cents_to_dollars(value):
     if isinstance(value, int):
         return float(value)/100

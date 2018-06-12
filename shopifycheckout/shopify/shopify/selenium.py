@@ -2,10 +2,13 @@ import time
 
 import socket
 import os
+import pickle
+
 
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException, StaleElementReferenceException, WebDriverException, NoSuchElementException
 from pyvirtualdisplay import Display
+from .items import ProductLink
 from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
@@ -13,14 +16,17 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.common.proxy import Proxy, ProxyType
 from .settings import CHROME_PATH, FIREFOX_PATH, BACKEND_DEBUG_MODE as DEBUG, PROXY, DefaultURL
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.options import Options
+from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.keys import Keys
 # from .exceptions import ConfigException
 
 
 """
 number of seconds used to wait the web page's loading.
 """
-WAIT_TIMEOUT = 10
+WAIT_TIMEOUT = 15
 
 """
 number of seconds used to wait the web page's loading.
@@ -39,7 +45,7 @@ number of seconds used to wait the web page's loading.
 """
 
 SEE_ALL_PLACEHOLDER = 'See all'
-
+IDLE_INTERVAL_IN_SECONDS = 10
 
 def wait_invisibility_xpath(driver, xpath, wait_timeout=None):
     if wait_timeout is None:
@@ -88,7 +94,7 @@ def get_by_xpath(driver, xpath, wait_timeout=None):
             (By.XPATH, xpath)
         ))
 
-        
+
 def extracts_see_all_url(driver):
     """
     Retrieve from the the Company front page the url of the page containing the list of its employees.
@@ -106,6 +112,7 @@ def extracts_see_all_url(driver):
     print(f'Found the following URL: {see_all_url}')
     return see_all_url
 
+
 def init_chromium():
     socket.setdefaulttimeout(60)
     if not os.path.exists(CHROME_PATH):
@@ -121,7 +128,6 @@ def init_chromium():
                               chrome_options=options)
     driver.implicitly_wait(200)
     driver.maximize_window()
-
     return driver
 
 
@@ -130,7 +136,6 @@ def _init_firefox():
     driver = webdriver.Firefox(firefox_binary=binary)
     driver.implicitly_wait(200)
     driver.maximize_window()
-
     return driver
 
 
@@ -149,7 +154,6 @@ def marionette_driver(**kwargs):
 
     profile = webdriver.FirefoxProfile(profile_directory=ffProfilePath)
 
-    # profile = webdriver.FirefoxProfile()
     if proxy_ip and proxy_port:
         print('setting proxy')
         profile.set_preference('network.proxy.socks_port', int(proxy_port))
@@ -161,25 +165,22 @@ def marionette_driver(**kwargs):
 
     firefox_capabilities = DesiredCapabilities.FIREFOX
     firefox_capabilities['marionette'] = True
-    # firefox_capabilities['binary'] = 'geckodriver'
-    #driver = webdriver.Firefox(capabilities=firefox_capabilities)
     firefox_capabilities['handleAlerts'] = True
     firefox_capabilities['acceptSslCerts'] = True
     firefox_capabilities['acceptInsecureCerts'] = True
     firefox_capabilities['javascriptEnabled'] = True
 
-    # cap = {'platform': 'ANY', 'browserName': 'firefox', 'version': '', 'marionette': True, 'javascriptEnabled': True}
     driver = webdriver.Firefox(options=options, firefox_profile=profile,
                                capabilities=firefox_capabilities)
-
-    #driver = webdriver.Firefox(options=options,
-    #                        capabilities=firefox_capabilities)
     if 'loadsession' in kwargs:
         load_session(driver, kwargs.get('email'))
 
     return driver
 
+
 """ load session with account email info """
+
+
 def load_session(driver, email="1", openUrl=""):
     storefile = get_sesssion_file(email)
     print('reading cookie:', storefile)
@@ -190,7 +191,9 @@ def load_session(driver, email="1", openUrl=""):
     except Exception as err:
         print('error:', err)
 
+
 """ get session file with account email info """
+
 
 def get_sesssion_file(email):
     dir_ = os.path.dirname(__file__)
@@ -200,7 +203,9 @@ def get_sesssion_file(email):
 
     return os.path.join(_COOKIE_FILE, email)
 
+
 """ store session file with account email info """
+
 
 def store_session(driver, email='1'):
     storefile = get_sesssion_file(email)
@@ -212,9 +217,9 @@ class SeleniumSpiderMixin:
     def __init__(self, selenium_hostname=None, **kwargs):
         if selenium_hostname is None:
             selenium_hostname = SELENIUM_HOSTNAME
-
         self.driver = marionette_driver(headless=False)
         super().__init__(**kwargs)
 
     def closed(self, reason):
+        pass
         self.driver.close()

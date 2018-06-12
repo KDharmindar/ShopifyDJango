@@ -4,13 +4,16 @@ from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
+from django.http import HttpResponse
 from rest_framework.filters import SearchFilter, OrderingFilter
 #from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.permissions import IsAuthenticated,\
     IsAuthenticatedOrReadOnly
 from rest_framework.views import APIView
 from rest_framework import status
+from django.core import serializers
 from API.models import *
+from API.serializers import *
 import json
 from django.contrib.auth.models import User
 
@@ -49,7 +52,6 @@ class UserManagement(APIView):
 
     def post(self, request,format=None):
         data = request.data
-        
         username = data.get('username', None)
         password = data.get('password', None)
         firstname = data.get('firstname',None)
@@ -203,6 +205,10 @@ class Createtask(APIView):
             return Response({
                 'message': 'Unauthorized request'
             }, status=status.HTTP_401_UNAUTHORIZED)
+    def get(self,request):
+        queryset = Task.objects.all()
+        serializer = TaskSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 class Savegmail(APIView):
     def post(self, request, format=None):
@@ -231,8 +237,12 @@ class Savegmail(APIView):
             return Response({
                 'message': 'Unauthorized request'
             }, status=status.HTTP_401_UNAUTHORIZED)
+    def get(self,request):
+        queryset = GmailAccount.objects.all()
+        serializer = GmailAccountSerializer(queryset, many=True)
+        return Response(serializer.data)
 
-class Proxies(APIView):
+class Proxy(APIView):
     def post(self, request, format=None):
         rec = request.data
         if len(rec) > 0:
@@ -258,13 +268,21 @@ class Proxies(APIView):
             return Response({
                 'message': 'Unauthorized request'
             }, status=status.HTTP_401_UNAUTHORIZED)
+    def get(self,request):
+        queryset = Proxies.objects.all()
+        # data = [obj.as_dict() for obj in self.get_queryset()]
+        # res = [{'port':obj.port, 'ip':obj.ip} for obj in queryset]
+        # res=[obj.ip+":"+obj.port for obj in queryset]
+        # return HttpResponse(json.dumps(res), content_type='application/json')
+        serializer = ProxySerializer(queryset, many=True)
+        return Response(serializer.data)
+
 
 class ShopifyURL(APIView):
     def post(self, request, format=None):
         rec = request.data
         if len(rec) > 0:
             # for rec in data:
-            print(rec)
             ShopifyUrl.objects.all().delete()
             for rec_one in rec:
                 url = rec_one.get('url',None)
@@ -284,3 +302,10 @@ class ShopifyURL(APIView):
             return Response({
                 'message': 'Unauthorized request'
             }, status=status.HTTP_401_UNAUTHORIZED)
+    def get(self,request):
+        queryset = ShopifyUrl.objects.all()
+        # res=[obj.url for obj in queryset]
+        # return HttpResponse(json.dumps(res), content_type='application/json')
+        serializer = ShopifySerializer(queryset, many=True)
+        return Response(serializer.data)
+
