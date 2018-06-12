@@ -73,3 +73,18 @@ def urlEncodeNonAscii(b):
 
 def _strip(param):
     return str(param).strip(' \t\n\r')
+
+
+class TaskStatus:
+    QUEUED = 'Queued'
+    RUNNING = 'Running'
+    NOSEARCHRESULT = 'NotResult'
+    RESEARCH = 'ReSearching'
+    NOTAVAILABLE = 'Not Available'
+    CHECKOUTING = 'Checkouting'
+    PIN_REQUIRED = 'Pin Required'
+    PIN_CHECKING = 'Pin Checking'
+    PIN_INVALID = 'Pin Invalid'
+    ERROR = 'Error'
+    DONE = 'Done'
+    CAPTCHA_SOLVING = 'Captcha solving'

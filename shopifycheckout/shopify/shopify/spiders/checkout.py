@@ -1,39 +1,20 @@
 # -*- coding: utf-8 -*-
 from shopify.spiders import ShopifySpider
 from shopify.items import ShopifyItem, ShopifyPrice, ShopifyVariant, ShopifyItemLoader
-import re
 from selenium.webdriver.common.by import By
-
 from shopify.utils import is_empty, _strip
-from shopify.gateway import get_profile
-from scrapy.selector import Selector
+from shopify.components.gateway import get_profile
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+from shopify.components.logic import search_product_by_keyword, get_product_info, add_cart, go_to_checkout
+from shopify.selenium import SeleniumSpiderMixin
 
-#from shopify.components import monitor
-import re
-import json
-import traceback
-import time
-
-from scrapy import Request, FormRequest, Item
-from scrapy.loader import ItemLoader
-from selenium.common.exceptions import TimeoutException, StaleElementReferenceException, WebDriverException, NoSuchElementException
-
-from scrapy.loader.processors import TakeFirst
-from shopify.selenium import SeleniumSpiderMixin, extracts_see_all_url, search_product_by_keyword, get_product_info, add_cart, go_to_checkout
-
-
-URLS_FILE = "urls.txt"
 IDLE_INTERVAL_IN_SECONDS = 5
 
 
 class CheckoutSpider(SeleniumSpiderMixin, ShopifySpider):
     name = 'checkout'
     allowed_domains = ['kith.com']
-
-    with open(URLS_FILE, "rt") as f:
-        start_urls = [url.strip() for url in f]
     start_urls = ['https://kith.com/']
 
     def parse(self, response):
@@ -48,7 +29,7 @@ class CheckoutSpider(SeleniumSpiderMixin, ShopifySpider):
         #         print('-------', product_url, '-----------')
         #         product_info.append(Request(url=product_url['url'],  callback=self.get_product_detail_info, dont_filter=True,))
         #         add_cart(self.driver, product_url['url'])
-        url = 'https://kith.com/collections/kids-latest/products/kidset-bleecker-pant-heather-grey'
+        url = 'https://sq-develop.tech/DigitalHealthFellow.html'
 
         isavailable = add_cart(self.driver, url)
         go_to_checkout(self.driver)
@@ -61,7 +42,9 @@ class CheckoutSpider(SeleniumSpiderMixin, ShopifySpider):
         #
         #         callback=self.get_product_detail_info, dont_filter=True,)
 
-
+    def closed(self):
+        self.driver.close()
+        pass
 
     def _fill_from_json(self, loader):
         item = loader.context['item']
@@ -87,7 +70,6 @@ class CheckoutSpider(SeleniumSpiderMixin, ShopifySpider):
         loader.replace_value('variants', product.get('variants'))
         loader.replace_value('images', product.get('images'))
         loader.replace_value('options', product.get('options'))
-        # loader.add_value(None, product)
         item = loader.load_item()
         return item
 
@@ -208,6 +190,3 @@ def check_out_with_paypal(driver, window_before):
     driver.switch_to.window(window_before)
 
     return True
-
-
-

@@ -112,6 +112,7 @@ def extracts_see_all_url(driver):
     print(f'Found the following URL: {see_all_url}')
     return see_all_url
 
+
 def init_chromium():
     socket.setdefaulttimeout(60)
     if not os.path.exists(CHROME_PATH):
@@ -210,91 +211,6 @@ def store_session(driver, email='1'):
     storefile = get_sesssion_file(email)
     print('storing cookie:', storefile)
     pickle.dump(driver.get_cookies() , open(storefile,"wb"))
-
-
-def get_search_input(driver):
-    return driver.find_element_by_id("search_input")
-
-
-def resolve_cookie(driver):
-    try:
-        appifyCookie = driver.find_element_by_id('appifyCookie')
-        appifyCookie.click()
-    except NoSuchElementException:
-        return driver
-    return driver
-
-
-def search_product_by_keyword(driver, keyword):
-    driver = resolve_cookie(driver)
-    element = get_search_input(driver)
-    element.click()
-    element.send_keys(keyword)
-    driver.implicitly_wait(10)
-    wait = WebDriverWait(driver, 30)
-    with open('shopify/javascript/search_input.js') as f:
-        contents = f.read()
-    driver.execute_script(contents)
-    view_all_link_button = wait.until(ec.visibility_of_element_located(
-        (By.CSS_SELECTOR, "li.snize-view-all-link")))
-    try:
-        driver.execute_script(contents)
-        view_all_link_button.click()
-    except Exception as e:
-        print('error:', e)
-    print('--------------------1-------------------')
-    return driver
-
-
-def get_product_info(driver):
-    ul = driver.find_element_by_class_name('snize-search-results-content')
-    lis = ul.find_elements_by_class_name('snize-product')
-    product_urls = []
-    for li in lis:
-        product_link = li.find_element_by_class_name('snize-view-link')
-        url = product_link.get_attribute('href')
-        # productLink = ProductLink(url=url)
-        product_urls.append({'url': url})
-        # yield productLink
-    return product_urls
-
-
-def add_cart(driver, url, **kwargs):
-    driver.get(url)
-    is_available = False
-    wait = WebDriverWait(driver, 30)
-    try:
-        buy_now_button = wait.until(ec.visibility_of_element_located(
-            (By.CSS_SELECTOR, "button#AddToCart")))
-        buy_now_button.click()
-        is_available = True
-    except Exception as e:
-        print('error:', e)
-    return is_available
-
-
-def go_to_checkout(driver, **kwargs):
-    with open('shopify/javascript/open_cart.js') as f:
-        open_cart_script = f.read()
-    driver.execute_script(open_cart_script)
-    print(open_cart_script)
-    with open('shopify/javascript/scroll_open_cart.js') as f:
-        scroll_cart = f.read()
-    driver.execute_script(scroll_cart)
-    print(scroll_cart)
-    driver.implicitly_wait(10)
-    with open('shopify/javascript/click_checkout_button.js') as f:
-        click_script_cart_button = f.read()
-    driver.execute_script(click_script_cart_button)
-    print(click_script_cart_button)
-    driver.implicitly_wait(10)
-    wait = WebDriverWait(driver, 30)
-    try:
-        buy_now_button = wait.until(ec.visibility_of_element_located(
-            (By.CSS_SELECTOR, "button.cart-checkout")))
-        buy_now_button.click()
-    except Exception as e:
-        print('error:', e)
 
 
 class SeleniumSpiderMixin:
