@@ -6,20 +6,21 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from django.http import HttpResponse
 from rest_framework.filters import SearchFilter, OrderingFilter
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
-from rest_framework.permissions import IsAuthenticated
+#from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.permissions import IsAuthenticated,\
+    IsAuthenticatedOrReadOnly
 from rest_framework.views import APIView
 from rest_framework import status
 from django.core import serializers
 from API.models import *
 from API.serializers import *
 import json
+from django.contrib.auth.models import User
 
 
 
 class Login(APIView):
-    # permission_classes = (permissions.AllowAny,)
-
+    queryset = User.objects.all()
     @csrf_exempt
     def post(self, request, format=None):
         # import pdb
@@ -82,86 +83,86 @@ class UserManagement(APIView):
         }, status=status.HTTP_401_UNAUTHORIZED)
 
 
-class Profilecheckout(APIView):
-
-    def post(self, request, format=None):
-        rec = request.data
-        # print("++++++++++++",data)
-        # data_json = json.loads(data)
-        # print("---",data["first_name"])
-        # print(data.get('first_name', None))
-        # print(data.get('zip', None))
-        if len(rec) > 0 :
-            # for rec in data:
-            print(rec)
-            first_name = rec.get('first_name', None)
-            last_name = rec.get('last_name', None)
-            address1 = rec.get('address_1', None)
-            address2 = rec.get('address_2', None)
-
-            city = rec.get('city', None)
-            state = rec.get('state', None)
-            zip_val = rec.get('zipcode', None)
-            email = rec.get('email', None)
-
-            phone = rec.get('phone', None)
-            card_num = rec.get('card', None)
-            card_cvv = rec.get('cvv', None)
-
-            # card_expired_month = rec.get('expiryDate', None)
-            # card_expired_year = rec.get('expiryDate', None)
-            card_expired_date = rec.get('expiryDate', None)
-            # card_expired_month = 23
-            # card_expired_year = 24
-            paypal_use = rec.get('isPaypal', None)
-            paypal_email = rec.get('paypalEmail', None)
-            paypal_pw = rec.get('paypalPassword', None)
-            if (first_name!=None and last_name!=None and address1!=None and address2!=None and city!=None\
-                and  state!=None and zip_val!=None and email!=None and phone!=None and card_num!=None and \
-                card_cvv!=None and card_expired_date!=None and\
-                paypal_use!=None and paypal_email!=None and paypal_pw!=None):
-                print("++++")
-                Checkout.objects.create(first_name=first_name,last_name=last_name,
-                                        address1=address1,address2=address1,city=city,
-                                        state=state,zipcode=zip_val,email=email,phone=phone,
-                                        card_num=card_num,card_cvv=card_cvv,paypal_use=paypal_use,
-                                        card_expired_date=card_expired_date,paypal_email=paypal_email,
-                                        paypal_pw=paypal_pw
-                                        )
-
-            else:
-                print("----")
-                return Response({
-                    'message': 'Invalid Data'
-                    },status=status.HTTP_401_UNAUTHORIZED)
-
-            return Response({
-                'stat': 'success',
-                'statusCode': status.HTTP_201_CREATED,
-                'message':'successfully Checkout Record created',
-
-            }, status=status.HTTP_201_CREATED)
-            
-                
-        else:
-            return Response({
-            'message': 'Unauthorized request'
-            },status=status.HTTP_401_UNAUTHORIZED)
-
-                
-        
-        # auth = request.META.get('HTTP_AUTHORIZATION', b'')
-        # token = auth.split(" ")
-        # print (token)
-        # token_validate = Token.objects.filter(key=token[1])[0]
-        
-        # if token_validate:
-        #     print("hiii",token_validate)
-        
-        # else:
-        #     return Response({
-        #     'message': 'Username or password is invalid'
-        # }, status=status.HTTP_401_UNAUTHORIZED)
+# class Profilecheckout(APIView):
+# 
+#     def post(self, request, format=None):
+#         rec = request.data
+#         # print("++++++++++++",data)
+#         # data_json = json.loads(data)
+#         # print("---",data["first_name"])
+#         # print(data.get('first_name', None))
+#         # print(data.get('zip', None))
+#         if len(rec) > 0 :
+#             # for rec in data:
+#             print(rec)
+#             first_name = rec.get('first_name', None)
+#             last_name = rec.get('last_name', None)
+#             address1 = rec.get('address_1', None)
+#             address2 = rec.get('address_2', None)
+# 
+#             city = rec.get('city', None)
+#             state = rec.get('state', None)
+#             zip_val = rec.get('zipcode', None)
+#             email = rec.get('email', None)
+# 
+#             phone = rec.get('phone', None)
+#             card_num = rec.get('card', None)
+#             card_cvv = rec.get('cvv', None)
+# 
+#             # card_expired_month = rec.get('expiryDate', None)
+#             # card_expired_year = rec.get('expiryDate', None)
+#             card_expired_date = rec.get('expiryDate', None)
+#             # card_expired_month = 23
+#             # card_expired_year = 24
+#             paypal_use = rec.get('isPaypal', None)
+#             paypal_email = rec.get('paypalEmail', None)
+#             paypal_pw = rec.get('paypalPassword', None)
+#             if (first_name!=None and last_name!=None and address1!=None and address2!=None and city!=None\
+#                 and  state!=None and zip_val!=None and email!=None and phone!=None and card_num!=None and \
+#                 card_cvv!=None and card_expired_date!=None and\
+#                 paypal_use!=None and paypal_email!=None and paypal_pw!=None):
+#                 print("++++")
+#                 Checkout.objects.create(first_name=first_name,last_name=last_name,
+#                                         address1=address1,address2=address1,city=city,
+#                                         state=state,zipcode=zip_val,email=email,phone=phone,
+#                                         card_num=card_num,card_cvv=card_cvv,paypal_use=paypal_use,
+#                                         card_expired_date=card_expired_date,paypal_email=paypal_email,
+#                                         paypal_pw=paypal_pw
+#                                         )
+# 
+#             else:
+#                 print("----")
+#                 return Response({
+#                     'message': 'Invalid Data'
+#                     },status=status.HTTP_401_UNAUTHORIZED)
+# 
+#             return Response({
+#                 'stat': 'success',
+#                 'statusCode': status.HTTP_201_CREATED,
+#                 'message':'successfully Checkout Record created',
+# 
+#             }, status=status.HTTP_201_CREATED)
+#             
+#                 
+#         else:
+#             return Response({
+#             'message': 'Unauthorized request'
+#             },status=status.HTTP_401_UNAUTHORIZED)
+# 
+#                 
+#         
+#         # auth = request.META.get('HTTP_AUTHORIZATION', b'')
+#         # token = auth.split(" ")
+#         # print (token)
+#         # token_validate = Token.objects.filter(key=token[1])[0]
+#         
+#         # if token_validate:
+#         #     print("hiii",token_validate)
+#         
+#         # else:
+#         #     return Response({
+#         #     'message': 'Username or password is invalid'
+#         # }, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class Createtask(APIView):

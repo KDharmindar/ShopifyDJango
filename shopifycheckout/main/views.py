@@ -50,7 +50,7 @@ def crawl(request):
 
 		return JsonResponse({'task_id':task,'unique_id':unique_id,'status':'started' })
 
-	else request.method == 'GET':	
+	elif request.method == 'GET':	
 
 		task_id = request.GET.get('task_id',None)
 		unique_id = request.GET.get('unique_id',None)
@@ -60,7 +60,7 @@ def crawl(request):
 
 		status = scrapyd.job_status('default',task_id)
 		
-		if status == 'finished'
+		if status == 'finished':
 			try:
 
 				item = ScrapyItem.objects.get(unique_id=unique_id)

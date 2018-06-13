@@ -9,7 +9,7 @@ export class AuthService {
 	private url = 'http://localhost:8000/api/v1/login/';
     constructor(private httpclient: Http) { }
 
-    getHeader() {
+    getHeader(): Headers {
         const headers = new Headers();
         //headers.append('content-type', 'application/x-www-form-urlencoded');
         headers.append('content-type', 'application/json');
@@ -20,12 +20,17 @@ export class AuthService {
     login(username: string, password: string) {
     	console.log(username);
 
+      let response = null;
+      
+      try {
         const requestOptions = new RequestOptions({
           headers: this.getHeader()
         });      
+      
+      
 
-        return this.httpclient.
-        	post(this.url, { 'username': username, 'password': password,'csrfmiddlewaretoken': '{{ csrf_token }}'}, requestOptions)
+      response = this.httpclient.
+          post(this.url, { 'username': username, 'password': password, 'csrfmiddlewaretoken': '{{ csrf_token }}'}, requestOptions)
             .map(user => {
                 // login successful if there's a jwt token in the response
                 if (user) {
@@ -35,6 +40,12 @@ export class AuthService {
  
                 return user;
             });
+      } catch(e) {
+        console.log(e)
+      }
+  
+      
+        return response; 
     }
  
     logout() {

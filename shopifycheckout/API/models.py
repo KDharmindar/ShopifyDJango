@@ -6,6 +6,10 @@ class Profile(models.Model):
 	user = models.OneToOneField(User,on_delete=models.CASCADE)
 	phone_number = models.CharField(max_length=15,blank=True)
 	profile_image = models.ImageField(upload_to='Profile', blank=True, null=True)
+	user = models.OneToOneField(User,on_delete=models.CASCADE)
+	phone_number = models.CharField(max_length=15,blank=True)
+	profile_image = models.ImageField(upload_to='Profile', blank=True, null=True)
+
 	# card_holder_name = models.CharField(max_length=100,blank=True)
 	# cc_number = models.CharField(max_length=16,blank=True)
 	# expiray_month = models.CharField(max_length=3,blank=True)

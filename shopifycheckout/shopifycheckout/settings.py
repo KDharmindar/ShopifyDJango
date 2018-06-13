@@ -92,7 +92,11 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'shopify',
         'USER': 'postgres',
+<<<<<<< .mine
+        'PASSWORD': '12345',
+=======
         'PASSWORD': 'cha123456',
+>>>>>>> .theirs
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -132,10 +136,7 @@ USE_L10N = True
 USE_TZ = True
 
 REST_FRAMEWORK = {
-
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': ( 'rest_framework.authentication.TokenAuthentication', ),
 }
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

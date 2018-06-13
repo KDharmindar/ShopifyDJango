@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map'
 
 @Injectable()
 export class GmailaccountService {
-	private url = 'http://localhost:8000/api/v1/savegmail';
+	private url = 'http://localhost:8000/api/v1/savegmail/';
 	constructor(private httpclient: Http) { }
 
     getHeader() {
