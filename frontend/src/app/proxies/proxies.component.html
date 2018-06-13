@@ -16,7 +16,6 @@ mat-header-cell {font-size:20px;}
 
 <mat-card>
   <mat-grid-list cols="10" rowHeight="150px" rowWidth="800px">
-    <!-- <mat-grid-tile colspan="8" rowspan="1" class="grid-border">  -->
     <mat-grid-tile colspan="8" rowspan="1" >
       <form class="gmail-form" [formGroup]="proxies" style="width:30%; height:100px">
         <mat-form-field style="width: 100%">
@@ -51,27 +50,22 @@ mat-header-cell {font-size:20px;}
                       </td>
                     </ng-container>
 
-                    <!-- ID Column -->
-                   <!--  <ng-container matColumnDef="id">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
-                    </ng-container>
- -->
                     <ng-container matColumnDef="ip">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> Retailer </mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> IP Address </mat-header-cell>
                         <mat-cell *matCellDef="let element"> {{element.ip}} </mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="port">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> Retailer </mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Port Number </mat-header-cell>
                         <mat-cell *matCellDef="let element"> {{element.port}} </mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="action">
                         <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
                         <mat-cell *matCellDef="let element">
-                            <i class="mdi mdi-lead-pencil"></i>
-                            <i class="mdi mdi-delete"></i>
+                            <i class="mdi mdi-lead-pencil" (click)="edit_item(element.ip,element.port)" style="color:green;cursor:pointer"></i>
+                            &nbsp;&nbsp;&nbsp;
+                            <i class="mdi mdi-delete" (click)="delete_item(element.ip,element.port)" style="color:red;cursor:pointer"></i>
                         </mat-cell>
                     </ng-container>
 

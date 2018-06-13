@@ -269,10 +269,6 @@ class Proxy(APIView):
             }, status=status.HTTP_401_UNAUTHORIZED)
     def get(self,request):
         queryset = Proxies.objects.all()
-        # data = [obj.as_dict() for obj in self.get_queryset()]
-        # res = [{'port':obj.port, 'ip':obj.ip} for obj in queryset]
-        # res=[obj.ip+":"+obj.port for obj in queryset]
-        # return HttpResponse(json.dumps(res), content_type='application/json')
         serializer = ProxySerializer(queryset, many=True)
         return Response(serializer.data)
 
