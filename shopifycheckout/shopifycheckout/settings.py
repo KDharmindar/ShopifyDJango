@@ -92,11 +92,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'shopify',
         'USER': 'postgres',
-<<<<<<< .mine
-        'PASSWORD': '12345',
-=======
         'PASSWORD': 'cha123456',
->>>>>>> .theirs
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
