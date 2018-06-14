@@ -12,10 +12,9 @@ export class AuthService {
     getHeader(): Headers {
         const headers = new Headers();
         //headers.append('content-type', 'application/x-www-form-urlencoded');
-        headers.append('content-type', 'application/json');
+      headers.append('content-type', 'application/json');
         return headers;
     }
-
 
     login(username: string, password: string) {
     	console.log(username);
@@ -26,8 +25,6 @@ export class AuthService {
         const requestOptions = new RequestOptions({
           headers: this.getHeader()
         });      
-      
-      
 
       response = this.httpclient.
           post(this.url, { 'username': username, 'password': password, 'csrfmiddlewaretoken': '{{ csrf_token }}'}, requestOptions)

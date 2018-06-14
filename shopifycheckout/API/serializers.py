@@ -22,12 +22,13 @@ class GmailAccountSerializer(serializers.ModelSerializer):
 class TaskSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Task
-		fields = ('id', 'site', 'type', 'size', 'billing_profile','proxy','checkout_type','quantity')
+		fields = ('id', 'site', 'type', 'size','checkout_id' , 'proxy', 'checkout_type', 'quantity')
 
 class CheckoutSerializer(serializers.ModelSerializer):
+	task = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 	class Meta:
 		model = Checkout
-		fields = ('id', 'first_name', 'last_name', 'address1', 'address2','city','state','zipcode','email','phone','card_num','card_cvv','card_expired_date','paypal_use','paypal_email','paypal_pw')
+		fields = ('id', 'first_name', 'last_name', 'address1', 'address2','city','state','zipcode','email','phone','card_num','card_cvv','card_expired_date','paypal_use','paypal_email','paypal_pw', 'task')
 
 
 class ProfileSerializer(serializers.ModelSerializer):

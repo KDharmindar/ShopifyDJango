@@ -16,7 +16,7 @@ export class GmailaccountService {
         return headers;
     }
 
-	gmailAccount(gmail_account: any){
+	gmailAccount(gmail_account: any) {
         const requestOptions = new RequestOptions({
           headers: this.getHeader()
         });  

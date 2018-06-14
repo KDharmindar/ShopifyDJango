@@ -15,14 +15,20 @@ from django.core import serializers
 from API.models import *
 from API.serializers import *
 import json
+#from API.permissions import AllowOptionsAuthentication 
 from django.contrib.auth.models import User
 
 
 
 class Login(APIView):
+    
+    print('Step 1 in direct view.')
+    #permission_classes = AllowOptionsAuthentication
     queryset = User.objects.all()
     @csrf_exempt
     def post(self, request, format=None):
+        
+        print('I am here.')
         # import pdb
         # pdb.set_trace()
         data = request.data
@@ -51,6 +57,8 @@ class Login(APIView):
 class UserManagement(APIView):
 
     def post(self, request,format=None):
+        
+        
         data = request.data
         username = data.get('username', None)
         password = data.get('password', None)

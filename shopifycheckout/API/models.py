@@ -82,7 +82,7 @@ class Task(models.Model):
 	site = models.CharField(max_length=50, blank=True)
 	type = models.CharField(max_length=50, blank=True)
 	size = models.TextField(max_length=500, blank=True)
-	billing_profile = models.TextField(max_length=500, blank=True)
+	product = models.TextField(max_length=500, blank=True)
 	checkout = models.ForeignKey(Checkout, related_name='task',
 							  on_delete=models.CASCADE, default=1)
 	proxy = models.TextField(max_length=500, blank=True)

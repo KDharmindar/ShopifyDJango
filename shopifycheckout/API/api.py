@@ -4,9 +4,20 @@ from .models import Checkout, Profile, Task, GmailAccount, Proxies, ShopifyUrl
 from rest_framework.decorators import detail_route, authentication_classes,\
     permission_classes
 from rest_framework.authentication import BasicAuthentication
-from dashing.permissions import IsAuthenticated, IsAdminUser
+from dashing.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
+from sympy.physics.unitsystems.systems.mks import action
+
+
+
+class CreateListMixin:
+    """Allows bulk creation of a resource."""
+    def get_serializer(self, *args, **kwargs):
+        if isinstance(kwargs.get('data', {}), list):
+            kwargs['many'] = True
+
+        return super().get_serializer(*args, **kwargs)
 
 
 class UserViewSet(ModelViewSet):
@@ -14,10 +25,10 @@ class UserViewSet(ModelViewSet):
     serializer_class = UserSerializer
     
     print('Step 1')
-    
     @csrf_exempt
-    @detail_route(methods=['post'])
-    def authenticate(self, request, format=None):
+    #@action(methods=['post'], detail=True, permission_classes=[AllowAny],
+     #       url_path='perform-login', url_name='perform_login')
+    def perform_login(self, request, format=None):
         print('Step 2')
                 # import pdb
         # pdb.set_trace()
@@ -62,9 +73,12 @@ class ProfileViewSet(ModelViewSet):
     serializer_class = ProfileSerializer    
     
     
-class TaskViewSet(ModelViewSet):
+class TaskViewSet(CreateListMixin, ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer    
+
+
+
     
 class GmailAccountViewSet(ModelViewSet):
     queryset = GmailAccount.objects.all()
