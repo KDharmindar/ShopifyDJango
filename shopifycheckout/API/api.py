@@ -4,7 +4,6 @@ from .models import Checkout, Profile, Task, GmailAccount, Proxies, ShopifyUrl
 from rest_framework.decorators import detail_route, authentication_classes,\
     permission_classes
 from rest_framework.authentication import BasicAuthentication
-from dashing.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from sympy.physics.unitsystems.systems.mks import action

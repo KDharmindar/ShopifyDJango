@@ -1,12 +1,12 @@
-import { AppRoutingModule} from './app-routing/app-routing.module';
-import { BrowserModule} from '@angular/platform-browser';
-import { NgModule} from '@angular/core';
-import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { AppRoutingModule } from './app-routing/app-routing.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AuthGuard } from './_guards/auth.guard';
 import { HttpModule } from '@angular/http';
-import { AppComponent} from './app.component';
-// import { HttpClientModule} from '@angular/common/http';
+import { AppComponent } from './app.component';
+import { HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
   MatInputModule,
@@ -35,6 +35,7 @@ import { CreatetaskService } from './service/createtask.service';
 import { GmailaccountService } from './service/gmailaccount.service';
 import { ProxiesService } from './service/proxies.service';
 import { ShopifyurlService } from './service/shopifyurl.service';
+import {CdkTableModule} from '@angular/cdk/table';
 
 @NgModule({
   declarations: [
