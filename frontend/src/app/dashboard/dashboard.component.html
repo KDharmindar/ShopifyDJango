@@ -14,25 +14,27 @@
 <!-- Content -->
 <div class="row">
     <div class="col">
-        <div class="mb15">
-            <button mat-raised-button>
-                <i class="mdi mdi-import"></i> Import Tasks</button>
-            <button mat-raised-button color="primary">
-                <i class="mdi mdi-export"></i> Export Tasks</button>
-            <div class="pull-right">
-                <button mat-button color="primary">
-                                <i class="mdi mdi-import"></i> Open Manual Captcha Harvester</button>
-                <button mat-raised-button color="warn">
-                                <i class="mdi mdi-export"></i> Set Timmer</button>
-            </div>
+      <div class="mb15">
+        <button mat-raised-button (click)="file_path.click()"><i class="mdi mdi-import"></i> Import Tasks</button>
+        <input type="file" accept=".csv" (change)="import_tasks($event)" style="display:none" #file_path>
+
+        <button mat-raised-button color="primary"><i class="mdi mdi-export"></i> Export Tasks</button>
+        <div class="pull-right">
+          <button mat-button color="primary">
+            <i class="mdi mdi-import"></i> Open Manual Captcha Harvester
+          </button>
+          <button mat-raised-button color="warn">
+            <i class="mdi mdi-export"></i> Set Timmer
+          </button>
         </div>
-        <div class="table-container mat-elevation-z8">
+      </div>
+        <div class="table-container mat-elevation-z8" >
             <div class="table-header">
                 <mat-form-field>
                     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
                 </mat-form-field>
             </div>
-            <mat-table #table [dataSource]="dataSource" matSort>
+            <mat-table #table [dataSource]="dataSource" matSort (onload)="populateTasks()">
                 <!-- ID Column -->
                 <ng-container matColumnDef="id">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
