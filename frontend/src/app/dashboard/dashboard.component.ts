@@ -43,12 +43,9 @@ export class DashboardComponent implements OnInit {
   }
 
 
-
-
-
-  populateTasks() {
+  generateTasksCSV() {
+    this.dashboardService.generateTaskCSV();
   }
-
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim();

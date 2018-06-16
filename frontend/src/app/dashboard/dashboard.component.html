@@ -18,7 +18,7 @@
         <button mat-raised-button (click)="file_path.click()"><i class="mdi mdi-import"></i> Import Tasks</button>
         <input type="file" accept=".csv" (change)="import_tasks($event)" style="display:none" #file_path>
 
-        <button mat-raised-button color="primary"><i class="mdi mdi-export"></i> Export Tasks</button>
+        <button mat-raised-button (click)="generateTasksCSV()" color="primary"><i class="mdi mdi-export"></i> Export Tasks</button>
         <div class="pull-right">
           <button mat-button color="primary">
             <i class="mdi mdi-import"></i> Open Manual Captcha Harvester
