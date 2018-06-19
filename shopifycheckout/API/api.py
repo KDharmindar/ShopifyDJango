@@ -6,7 +6,7 @@ from rest_framework.decorators import detail_route, authentication_classes,\
 from rest_framework.authentication import BasicAuthentication
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
-from sympy.physics.unitsystems.systems.mks import action
+
 
 
 
@@ -74,10 +74,8 @@ class ProfileViewSet(ModelViewSet):
     
 class TaskViewSet(CreateListMixin, ModelViewSet):
     queryset = Task.objects.all()
-    serializer_class = TaskSerializer    
-
-
-
+    serializer_class = TaskSerializer  
+    
     
 class GmailAccountViewSet(ModelViewSet):
     queryset = GmailAccount.objects.all()

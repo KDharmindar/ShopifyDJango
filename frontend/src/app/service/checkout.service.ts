@@ -19,7 +19,7 @@ export class CheckoutService {
 	checkoutProfile(checkout: any){
         const requestOptions = new RequestOptions({
           headers: this.getHeader()
-        });  
+        });
 		return this.httpclient.
 			post(this.url, JSON.stringify(checkout), requestOptions)
 		    .map(user => {
@@ -30,5 +30,16 @@ export class CheckoutService {
 		        }
 		        return user;
 	    });
-	}
+  }
+
+  getCheckOutProfiles() {
+     const requestOptions = new RequestOptions({
+      headers: this.getHeader()
+    });
+
+    return this.httpclient.get(this.url, requestOptions).map(res => res.json());
+  }
+
+
+
 }

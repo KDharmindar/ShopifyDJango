@@ -1,7 +1,7 @@
 import { DashboardService } from './dashboard.service';
 import { Component, OnInit, NgModule, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { taskData } from './dashboard.model';
+import { taskData, checkoutProfileData, proxy } from './dashboard.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns = [
     'id',
-    'retailer',
+    'site',
     'product',
     'size',
     'start_time',
@@ -35,8 +35,6 @@ export class DashboardComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
-
-
   }
 
   ngAfterViewInit() {
@@ -55,7 +53,7 @@ export class DashboardComponent implements OnInit {
 
 
   trimInvertedCommas(value: string): string {
-    let ret = value.replace(/['"]+/g, ''));
+    let ret = value.replace(/["]/g, "");
     return ret;
   }
 
@@ -73,26 +71,28 @@ export class DashboardComponent implements OnInit {
         let tasks: taskData[] = [];
 
         for (let i = 0; i < allTextLines.length; i++) {
-          
+
           if (allTextLines[i] != "") {
             data = allTextLines[i].split(',');
-            if (data.length == 12) {
+            if (data.length == 13) {
+
               let newTask:taskData = {
                 id : Number(this.trimInvertedCommas(String(data[0]))),
-                site : this.trimInvertedCommas(String(data[1])),
+                size: Number(this.trimInvertedCommas(String(data[1]))),
                 product: this.trimInvertedCommas(String(data[2])),
-                size: Number(this.trimInvertedCommas(String(data[3]))),
-                start_time: this.trimInvertedCommas(String(data[4])),
-                checkout_id: Number(this.trimInvertedCommas(String(data[5]))),
-                proxy : this.trimInvertedCommas(String(data[6])),
-                status : this.trimInvertedCommas(String(data[7])),
-                action : this.trimInvertedCommas(String(data[8])),
-                quantity : this.trimInvertedCommas(String(data[9])),
-                completed_date : this.trimInvertedCommas(String(data[10])),
-                keyword : this.trimInvertedCommas(String(data[11])),
+                start_time: this.trimInvertedCommas(String(data[3])),
+                quantity : this.trimInvertedCommas(String(data[4])),
+                completed_date : this.trimInvertedCommas(String(data[5])),
+                keyword : this.trimInvertedCommas(String(data[6])),
+                checkout_type: this.trimInvertedCommas(String(data[7])),
+                status: this.trimInvertedCommas(String(data[8])),
+                action: this.trimInvertedCommas(String(data[9])),
+                checkout_id:  Number(this.trimInvertedCommas(String(data[10]))),
+                proxy_id: Number(this.trimInvertedCommas(String(data[11]))),
+                site_id: Number(this.trimInvertedCommas(String(data[12]))),
               };
               tasks.push(newTask);
-              console.log("task added {$i}");
+              console.log("task added {i}");
             }
           }
         }

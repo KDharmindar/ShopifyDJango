@@ -19,16 +19,27 @@ class GmailAccountSerializer(serializers.ModelSerializer):
 		model = GmailAccount
 		fields = ('id', 'email', 'password')
 
-class TaskSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = Task
-		fields = ('id', 'site', 'type', 'size','checkout_id' , 'proxy', 'checkout_type', 'quantity')
-
 class CheckoutSerializer(serializers.ModelSerializer):
-	task = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 	class Meta:
 		model = Checkout
-		fields = ('id', 'first_name', 'last_name', 'address1', 'address2','city','state','zipcode','email','phone','card_num','card_cvv','card_expired_date','paypal_use','paypal_email','paypal_pw', 'task')
+		fields = ('id', 'first_name', 'last_name', 'address1', 'address2','city','state','zipcode','email','phone','card_num','card_cvv','card_expired_date','paypal_use','paypal_email','paypal_pw')
+
+
+
+class TaskSerializer(serializers.ModelSerializer):
+    #site = serializers.PrimaryKeyRelatedField(read_only=True)
+    #proxy = serializers.PrimaryKeyRelatedField(read_only=True)
+    #checkout =  serializers.PrimaryKeyRelatedField(read_only=True)
+
+	site = ShopifySerializer(read_only=True)
+	proxy = ProxiesSerializer(read_only=True)
+	checkout = CheckoutSerializer(read_only=True)
+    
+
+	class Meta:
+		model = Task
+		fields = ('id','size' ,'product', 'start_time', 'quantity','completed_date' , 'keyword', 'checkout_type','status','action', 'checkout', 'proxy', 'site')
+
 
 
 class ProfileSerializer(serializers.ModelSerializer):

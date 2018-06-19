@@ -35,6 +35,7 @@
                 </mat-form-field>
             </div>
             <mat-table #table [dataSource]="dataSource" matSort (onload)="populateTasks()">
+
                 <!-- ID Column -->
                 <ng-container matColumnDef="id">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
@@ -42,9 +43,9 @@
                 </ng-container>
 
                 <!-- Retailer Column -->
-                <ng-container matColumnDef="retailer">
+                <ng-container matColumnDef="site">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Retailer </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.retailer}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.site.url}} </mat-cell>
                 </ng-container>
 
                 <!-- Product Column -->
@@ -68,13 +69,13 @@
                 <!-- Profile Column -->
                 <ng-container matColumnDef="profile">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Profile </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.profile}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.checkout.first_name}} </mat-cell>
                 </ng-container>
 
                 <!-- Proxy Column -->
                 <ng-container matColumnDef="proxy">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Proxy </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.proxy}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.proxy.ip}} </mat-cell>
                 </ng-container>
 
                 <!-- Status Column -->
