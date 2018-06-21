@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'reset_migrations',
+    'shopify',
+    'scrapy',
 ]
 
 MIDDLEWARE = [

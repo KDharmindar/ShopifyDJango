@@ -10,7 +10,7 @@ export interface taskData {
     status: string,
     action: string,
     checkout_id: number,
-    proxy_id : number,
+    proxy_id: number,
     site_id: number;
 }
 

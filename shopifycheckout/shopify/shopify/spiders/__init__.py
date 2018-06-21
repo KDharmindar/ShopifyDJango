@@ -8,9 +8,9 @@ import time
 from selenium.common.exceptions import TimeoutException, StaleElementReferenceException, WebDriverException, NoSuchElementException
 
 from abc import ABC, ABCMeta, abstractmethod
-from shopify.components import CrawlerComponent, monitor
-from shopify.settings import DEFAULT_REQUEST_HEADERS
-from shopify.items import ShopifyItem, ShopifyVariant, ShopifyPrice, ShopifyItemLoader
+from shopify.shopify.components import CrawlerComponent, monitor
+from shopify.shopify.settings import DEFAULT_REQUEST_HEADERS
+from shopify.shopify.items import ShopifyItem, ShopifyVariant, ShopifyPrice, ShopifyItemLoader
 from scrapy.loader import ItemLoader
 from scrapy.loader.processors import TakeFirst
 

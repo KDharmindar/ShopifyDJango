@@ -1,4 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
+from rest_framework import mixins, status
+from rest_framework.response import Response
 from .serializers import *
 from .models import Checkout, Profile, Task, GmailAccount, Proxies, ShopifyUrl
 from rest_framework.decorators import detail_route, authentication_classes,\
@@ -6,6 +8,8 @@ from rest_framework.decorators import detail_route, authentication_classes,\
 from rest_framework.authentication import BasicAuthentication
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
+from anaconda_navigator.utils.py3compat import request
+from shopify.shopify.spiders import search, checkout
 
 
 
@@ -74,7 +78,23 @@ class ProfileViewSet(ModelViewSet):
     
 class TaskViewSet(CreateListMixin, ModelViewSet):
     queryset = Task.objects.all()
-    serializer_class = TaskSerializer  
+    serializer_class = TaskSerializer
+    
+    @detail_route(methods=['get','post','put'], url_path='perform-buy', url_name='perform-buy')
+    def perform_buy(self, request, pk=None):
+        print('perform buy fontionality')
+        data = request.data
+        print (data)
+    
+        return Response(
+        {
+            'status': 'success',
+            'statusCode': status.HTTP_201_CREATED,
+            'message': 'data received',
+            'token': '',
+            "id": 1,
+        }, status=status.HTTP_201_CREATED)    
+      
     
     
 class GmailAccountViewSet(ModelViewSet):

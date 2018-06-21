@@ -1,27 +1,26 @@
 # -*- coding: utf-8 -*-
 import time
-from shopify.spiders import ShopifySpider
-from shopify.items import ShopifyItem, ShopifyPrice, ShopifyVariant, ShopifyItemLoader
+from shopify.shopify.spiders import ShopifySpider
+from shopify.shopify.items import ShopifyItem, ShopifyPrice, ShopifyVariant, ShopifyItemLoader
 from selenium.webdriver.common.by import By
-from shopify.utils import is_empty, _strip, validate_url, TaskStatus
+from shopify.shopify.utils import is_empty, _strip, validate_url, TaskStatus
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
-from shopify.selenium import SeleniumSpiderMixin
-from shopify.components.logic import search_product_by_keyword, \
+from shopify.shopify.selenium import SeleniumSpiderMixin
+from shopify.shopify.components.logic import search_product_by_keyword, \
     get_product_info, \
     add_cart, \
     go_to_checkout, \
     set_checkout_info,\
     check_out_with_paypal
-from shopify.components.gateway import update_task_status
-from shopify.components.scheduler import Scheduler
+from shopify.shopify.components.gateway import update_task_status
+from shopify.shopify.components.scheduler import Scheduler
 from scrapy import Request
 
 class SearchSpider(SeleniumSpiderMixin, ShopifySpider):
     name = 'search'
     allowed_domains = ['kith.com']
     start_urls = ['http://kith.com/']
-
 
     def parse(self, response):
         task = Scheduler.__waiting_for_active_task__()

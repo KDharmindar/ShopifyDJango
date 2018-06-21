@@ -7,7 +7,7 @@ from selenium.common.exceptions import TimeoutException, \
     StaleElementReferenceException, \
     WebDriverException, \
     NoSuchElementException
-from shopify.components.scheduler import Scheduler
+from shopify. shopify.components.scheduler import Scheduler
 from selenium.webdriver.support.ui import Select
 
 def get_cart_list_info(driver):

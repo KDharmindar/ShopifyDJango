@@ -5,7 +5,7 @@ sys.path.append(os.path.dirname(os.path.abspath('.')))
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "shopifycheckout.settings")
 django.setup()
-from shopify.utils import TaskStatus
+from shopify.shopify.utils import TaskStatus
 
 from API.models import Profile
 from API.models import Task
