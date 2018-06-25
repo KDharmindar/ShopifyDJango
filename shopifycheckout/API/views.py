@@ -58,6 +58,7 @@ class UserManagement(APIView):
 
     def post(self, request,format=None):
         
+        print ("This method is running...")
         
         data = request.data
         username = data.get('username', None)

@@ -2,15 +2,15 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework import mixins, status
 from rest_framework.response import Response
 from .serializers import *
-from .models import Checkout, Profile, Task, GmailAccount, Proxies, ShopifyUrl
+from .models import Checkout, Profile, Task, GmailAccount, Proxies, ShopifyUrl, BotTaskStatus
 from rest_framework.decorators import detail_route, authentication_classes,\
     permission_classes
 from rest_framework.authentication import BasicAuthentication
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
-from anaconda_navigator.utils.py3compat import request
-from shopify.shopify.spiders import search, checkout
-
+#from anaconda_navigator.utils.py3compat import request
+#from shopify.spiders import search, checkout
+#from task_runner import task_runner
 
 
 
@@ -85,7 +85,11 @@ class TaskViewSet(CreateListMixin, ModelViewSet):
         print('perform buy fontionality')
         data = request.data
         print (data)
-    
+        
+        current_task = Task.objects.get(pk=1)
+        
+        task_runner(current_task)
+        
         return Response(
         {
             'status': 'success',

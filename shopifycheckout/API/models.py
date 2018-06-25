@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from enum import Enum
 
 
 class Profile(models.Model):
@@ -50,7 +51,7 @@ class BotTaskType:
 
 
 class BotTaskStatus:
-	QUEUED = 'Queued'
+	QUEUED = 'Queued' 
 	RUNNING = 'Running'
 	NOSEARCHRESULT = 'NotResult'
 	RESEARCH = 'ReSearching'
@@ -78,6 +79,22 @@ class BotTaskStatus:
     )
 
 
+#===============================================================================
+# class BotTaskStatus(Enum):
+# 	QUEUED = 'Queued' 
+# 	RUNNING = 'Running'
+# 	NOSEARCHRESULT = 'NotResult'
+# 	RESEARCH = 'ReSearching'
+# 	NOTAVAILABLE = 'Not Available'
+# 	CHECKOUTING = 'Checkouting'
+# 	PIN_REQUIRED = 'Pin Required'
+# 	PIN_CHECKING = 'Pin Checking'
+# 	PIN_INVALID = 'Pin Invalid'
+# 	ERROR = 'Error'
+# 	DONE = 'Done'
+# 	CAPTCHA_SOLVING = 'Captcha solving'
+#===============================================================================
+
 class ShopifyUrl(models.Model):
 	url = models.CharField(max_length=500, blank=True)
 
@@ -99,8 +116,10 @@ class Task(models.Model):
 	keyword = models.CharField(max_length=50, blank=True)
 	checkout_type = models.CharField(max_length=50, blank=True)
 	status = models.CharField(max_length=20, choices=BotTaskStatus.statuses, default=BotTaskStatus.QUEUED)
+	#status = [(tag, tag.value) for tag in BotTaskStatus]
 	action = models.CharField(max_length=20, blank=True)
 
+	
 
 class GmailAccount(models.Model):
 	email = models.CharField(max_length=50, blank=True)
