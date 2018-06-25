@@ -16,29 +16,47 @@
         <h1>Create Task</h1>
         <form id="task-creator" [formGroup]="task">
             <mat-form-field>
-                <input matInput type="text" placeholder="Site" formControlName="site" minlength="3" maxlength="50">
+                <input matInput type="text" placeholder="Site" formControlName="site" >
+                <mat-error >
+                    {{errors.site}}
+                  </mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-select placeholder="Type" formControlName="type">
                     <mat-option value="link">Link</mat-option>
                     <mat-option value="variant">Variant</mat-option>
                     <mat-option value="keyword">Keyword</mat-option>
+                    <mat-error >
+                        {{errors.type}}
+                      </mat-error>
                 </mat-select>
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="number" placeholder="Size" formControlName="size" min="0" max="50">
+                <mat-error >
+                    {{errors.size}}
+                  </mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="text" placeholder="0.0.0.0" formControlName="proxy">
+                <mat-error >
+                    {{errors.proxy}}
+                  </mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-select placeholder="Checkout Type" formControlName="checkoutType">
                     <mat-option value="FrontEnd">FrontEnd</mat-option>
                     <mat-option value="Backend">Backend</mat-option>
                 </mat-select>
+                <mat-error >
+                    {{errors.checkoutType}}
+                  </mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput type="number" placeholder="Quantity" formControlName="quantity" min="0" max="50">
+                <mat-error >
+                    {{errors.quantity}}
+                  </mat-error>
             </mat-form-field>
             <button mat-raised-button color="primary" (click)="createTask()" [disabled]="!task.valid">Create Task</button>
         </form>
