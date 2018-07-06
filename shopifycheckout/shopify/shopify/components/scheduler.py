@@ -1,6 +1,6 @@
 import random
 import time
-from shopify.shopify.components.gateway import get_queued_task, get_researching_task
+from shopify.components.gateway import get_queued_task, get_researching_task
 
 
 class Scheduler():

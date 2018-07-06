@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-from shopify.shopify.spiders import ShopifySpider
-from shopify.shopify.items import ShopifyItem, ShopifyPrice, ShopifyVariant, ShopifyItemLoader
+from shopify.spiders import ShopifySpider
+from shopify.items import ShopifyItem, ShopifyPrice, ShopifyVariant, ShopifyItemLoader
 from selenium.webdriver.common.by import By
-from shopify.shopify.utils import is_empty, _strip
-from shopify.shopify.components.gateway import get_profile
+from shopify.utils import is_empty, _strip
+from shopify.components.gateway import get_profile
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
-from shopify.shopify.components.logic import search_product_by_keyword, get_product_info, add_cart, go_to_checkout
-from shopify.shopify.selenium import SeleniumSpiderMixin
+from shopify.components.logic import search_product_by_keyword, get_product_info, add_cart, go_to_checkout
+from shopify.selenium import SeleniumSpiderMixin
 
 IDLE_INTERVAL_IN_SECONDS = 5
 
@@ -29,8 +29,10 @@ class CheckoutSpider(SeleniumSpiderMixin, ShopifySpider):
         #         print('-------', product_url, '-----------')
         #         product_info.append(Request(url=product_url['url'],  callback=self.get_product_detail_info, dont_filter=True,))
         #         add_cart(self.driver, product_url['url'])
-        url = 'https://sq-develop.tech/DigitalHealthFellow.html'
+        url = 'https://kith.com/collections/footwear/products/timberland-world-hiker-og-gopher'
 
+        
+        
         isavailable = add_cart(self.driver, url)
         go_to_checkout(self.driver)
 

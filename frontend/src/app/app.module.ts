@@ -28,6 +28,7 @@ import {
 } from '@angular/material';
 
 import { LoginComponent } from './login/login.component';
+import { CaptchaHarvestorComponent } from './captcha-harvestor/captcha-harvestor.component';
 // import { HomeModule } from './home/home.module';
 import { AuthService } from './service/auth.service';
 import { CheckoutService } from './service/checkout.service';
@@ -40,7 +41,8 @@ import {CdkTableModule} from '@angular/cdk/table';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    CaptchaHarvestorComponent
   ],
   imports: [
     BrowserModule,

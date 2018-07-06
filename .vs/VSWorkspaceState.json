@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\frontend",
+    "\\frontend\\src",
+    "\\frontend\\src\\app",
+    "\\frontend\\src\\app\\dashboard",
+    "\\shopifycheckout",
+    "\\shopifycheckout\\API",
+    "\\shopifycheckout\\shopifycheckout"
+  ],
+  "SelectedNode": "\\shopifycheckout\\API\\models.py",
+  "PreviewInSolutionExplorer": false
+}

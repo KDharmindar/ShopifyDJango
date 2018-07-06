@@ -41,6 +41,10 @@ export class DashboardComponent implements OnInit {
   }
 
 
+  openCaptchaHarvester() {
+
+  }
+
   generateTasksCSV() {
     this.dashboardService.generateTaskCSV();
   }

@@ -1,0 +1,15 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskName": "task-frontend",
+      "appliesTo": "frontend/",
+      "type": "launch"
+    },
+    {
+      "taskName": "task-shopifycheckout",
+      "appliesTo": "shopifycheckout/",
+      "type": "launch"
+    }
+  ]
+}

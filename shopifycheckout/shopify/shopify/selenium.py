@@ -139,11 +139,14 @@ def _init_firefox():
     return driver
 
 
+
+
 def marionette_driver(**kwargs):
     proxy_port = kwargs.get('proxy_port', None)
     proxy_ip = kwargs.get('proxy_ip', None)
 
     options = Options()
+    options.set_headless(headless=True)
     if kwargs.get('headless', True):
         options.add_argument('--headless')
 
@@ -172,10 +175,13 @@ def marionette_driver(**kwargs):
 
     driver = webdriver.Firefox(options=options, firefox_profile=profile,
                                capabilities=firefox_capabilities)
+    
+    
     if 'loadsession' in kwargs:
         load_session(driver, kwargs.get('email'))
 
     return driver
+
 
 
 """ load session with account email info """

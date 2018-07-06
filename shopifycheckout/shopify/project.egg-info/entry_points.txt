@@ -1,0 +1,3 @@
+[scrapy]
+settings = shopify.settings
+

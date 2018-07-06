@@ -7,7 +7,7 @@ from selenium.common.exceptions import TimeoutException, \
     StaleElementReferenceException, \
     WebDriverException, \
     NoSuchElementException
-from shopify. shopify.components.scheduler import Scheduler
+from shopify.components.scheduler import Scheduler
 from selenium.webdriver.support.ui import Select
 
 def get_cart_list_info(driver):
@@ -36,7 +36,7 @@ def set_checkout_info(driver, url=None, **kwargs):
     billing_info = kwargs.get('checkout', None)
     check_out_email = driver.find_element_by_id('checkout_email')
     first_name = driver.find_element_by_id('checkout_shipping_address_first_name')
-    last_name = driver.find_element_by_id('checkout_shipping_address_last_name')
+    last_name = driver.find_element_by_id('checkout_shipping_address_last_name+')
     address1 = driver.find_element_by_id('checkout_shipping_address_address1')
     address2 = driver.find_element_by_id('checkout_shipping_address_address2')
     city = driver.find_element_by_id('checkout_shipping_address_city')
